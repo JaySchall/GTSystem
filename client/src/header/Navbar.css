@@ -24,7 +24,7 @@ header nav {
   height: 50px;
   background-color: var(--purple);
   font-weight: bold;
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   font-family: "Rokkitt", sans-serif
 }
 
@@ -36,7 +36,7 @@ header nav {
   #aadl-logo-text {
     line-height: 68px;
     height: 68px;
-    font-size: 1.5rem
+    font-size: 2.0rem
   }
 }
 
@@ -71,7 +71,7 @@ header nav {
     display: block;
     margin-right: 2.3576515979%;
     width: 31.275%;
-    font-size: 1.275rem
+    font-size: 2.0rem
   }
 
   #aadl-logo-text:last-child {
@@ -86,7 +86,6 @@ header nav {
 @media screen and (min-width:768px) {
   #aadl-logo-text span {
     position: relative;
-    top: 5px
   }
 }
 
@@ -153,7 +152,6 @@ a #gtsystem-logo-2 {
 @media screen and (min-width:768px) {
   .main-nav-item a {
     position: relative;
-    top: 5px;
     text-decoration: none
   }
 }
