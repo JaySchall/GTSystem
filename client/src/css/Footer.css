@@ -1,0 +1,108 @@
+.connect-links {
+    padding: 30px 0;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000
+}
+
+.connect-links a {
+    text-align: center;
+    float: left;
+    display: block;
+    margin-right: 10.1483979942%;
+    width: 26.5677346705%;
+    color: var(--violet)
+}
+
+.connect-links a:last-child {
+    margin-right: 0
+}
+
+.connect-links img,
+.connect-links i {
+    display: block;
+    max-width: 75px;
+    margin: 0 auto;
+}
+
+.connect-links .fa {
+    font-size: 75px
+}
+
+.connect-links-1,
+.connect-links-2 {
+    float: left;
+    display: block;
+    margin-right: 7.4229703521%;
+    width: 73.144257412%;
+    margin-top: 10px;
+    margin-bottom: 10px
+}
+
+.connect-links-1:last-child,
+.connect-links-2:last-child {
+    margin-right: 0
+}
+
+.connect-links-1 {
+    margin-left: 13.427871294%
+}
+
+@media screen and (min-width:768px) {
+    .connect-links-1 {
+        float: left;
+        display: block;
+        margin-right: 3.5786636068%;
+        width: 35.2633352458%;
+        margin-left: 19.4209994263%
+    }
+
+    .connect-links-1:last-child {
+        margin-right: 0
+    }
+}
+
+@media screen and (min-width:1024px) {
+    .connect-links-1 {
+        float: left;
+        display: block;
+        margin-right: 2.3576515979%;
+        width: 23.2317613015%;
+        margin-left: 29.8543150494%
+    }
+
+    .connect-links-1:last-child {
+        margin-right: 0
+    }
+}
+
+.connect-links-2 {
+    margin-left: 26.855742588%
+}
+
+@media screen and (min-width:768px) {
+    .connect-links-2 {
+        float: left;
+        display: block;
+        margin-right: 3.5786636068%;
+        width: 35.2633352458%;
+        margin-left: 0%
+    }
+
+    .connect-links-2:last-child {
+        margin-right: 0
+    }
+}
+
+@media screen and (min-width:1024px) {
+    .connect-links-2 {
+        float: left;
+        display: block;
+        margin-right: 2.3576515979%;
+        width: 23.2317613015%;
+        margin-left: 0%
+    }
+
+    .connect-links-2:last-child {
+        margin-right: 0
+    }
+}
