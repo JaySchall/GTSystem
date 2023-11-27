@@ -105,7 +105,12 @@ export default function EventPage(){
             </div>
             <p>
               <b>Tags</b>
-              {/*For each tag create <br/><a href="/feed/tag">{tagname}</a> */}
+              {eventDetails.tags && eventDetails.tags.split(',').map((tag, index) => (
+              <React.Fragment key={index}>
+                <br />
+                <a href={`/tags/${encodeURIComponent(tag.replace(/\s+/g, '-'))}`}>{tag}</a>
+              </React.Fragment>
+            ))}
             </p>
           </div>
         </div>

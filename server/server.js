@@ -35,8 +35,11 @@ app.get("/api", (req, res) => {
   app.get('/api/event/:id', (req, res) => {
     const { id } = req.params;
   
-    // Fetch tournament details from the database based on the provided ID
-    db.get('SELECT * FROM events WHERE id = ?', [id], (err, row) => {
+    // Fetch event details with tags from the database based on the provided ID
+    db.get('SELECT e.*, GROUP_CONCAT(t.name) AS tags FROM events e ' +
+           'LEFT JOIN event_tags et ON e.id = et.event_id ' +
+           'LEFT JOIN tags t ON et.tag_id = t.id ' +
+           'WHERE e.id = ? GROUP BY e.id', [id], (err, row) => {
       if (err) {
         console.error('Error getting event details:', err);
         res.status(500).json({ error: 'Internal Server Error' });
@@ -48,7 +51,7 @@ app.get("/api", (req, res) => {
         }
       }
     });
-  });
+});
 
   app.get('/api/get-events', (req, res) => {
   db.all('SELECT * FROM events', (err, rows) => {
@@ -58,6 +61,37 @@ app.get("/api", (req, res) => {
     } else {
       res.status(200).json(rows);
     }
+  });
+});
+
+app.get('/api/tags', (req, res) => {
+  // Fetch all tags from the database
+  db.all('SELECT * FROM tags', (err, rows) => {
+    if (err) {
+      console.error('Error getting tags:', err);
+      res.status(500).json({ error: 'Internal Server Error' });
+    } else {
+      res.status(200).json(rows);
+    }
+  });
+});
+
+app.get('/api/events-by-tag/:tag', (req, res) => {
+  const { tag } = req.params;
+
+  const originalTagName = tag.replace(/[-_]/g, ' ');  // Fix here
+  // Fetch events by tag from the database
+
+  db.all('SELECT e.* FROM events e ' +
+         'JOIN event_tags et ON e.id = et.event_id ' +
+         'JOIN tags t ON et.tag_id = t.id ' +
+         'WHERE t.name = ?', [originalTagName], (err, rows) => {
+      if (err) {
+          console.error('Error getting events by tag:', err);
+          res.status(500).json({ error: 'Internal Server Error' });
+      } else {
+          res.status(200).json(rows);
+      }
   });
 });
 
