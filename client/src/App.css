@@ -1,6 +1,6 @@
 @media screen and (min-width: 1024px) {
   header nav {
-      height: 68px;
+    height: 68px;
   }
 }
 
@@ -48,7 +48,7 @@ a.button:visited {
 
 @media screen and (min-width:1024px) {
   form {
-      width: 35%
+    width: 35%
   }
 }
 
@@ -253,12 +253,12 @@ select[multiple] {
 
 @media screen and (min-width:768px) {
   .side-by-side-form {
-      max-width: 45%;
-      vertical-align: top
+    max-width: 45%;
+    vertical-align: top
   }
 
   .side-by-side-form:first-child {
-      margin-right: 8%
+    margin-right: 8%
   }
 }
 
@@ -323,7 +323,7 @@ html {
 
 @media screen and (min-width:768px) {
   html {
-      font-size: 1rem
+    font-size: 1rem
   }
 }
 
@@ -562,29 +562,29 @@ body.two-sidebars main section#content:last-child {
 
 @media screen and (min-width:768px) {
   .page-with-sidebar-content {
-      float: left;
-      display: block;
-      margin-right: 3.5786636068%;
-      width: 74.1053340983%;
-      margin-left: 25.8946659017%
+    float: left;
+    display: block;
+    margin-right: 3.5786636068%;
+    width: 74.1053340983%;
+    margin-left: 25.8946659017%
   }
 
   .page-with-sidebar-content:last-child {
-      margin-right: 0
+    margin-right: 0
   }
 }
 
 @media screen and (min-width:1024px) {
   .page-with-sidebar-content {
-      float: left;
-      display: block;
-      margin-right: 2.3576515979%;
-      width: 74.4105871005%;
-      margin-left: 25.5894128995%
+    float: left;
+    display: block;
+    margin-right: 2.3576515979%;
+    width: 74.4105871005%;
+    margin-left: 25.5894128995%
   }
 
   .page-with-sidebar-content:last-child {
-      margin-right: 0
+    margin-right: 0
   }
 }
 
@@ -604,7 +604,7 @@ body.two-sidebars main section#content:last-child {
 
 @media screen and (min-width:768px) {
   .action-result ul {
-      font-size: .9rem
+    font-size: .9rem
   }
 }
 
@@ -689,7 +689,7 @@ table:not(.ui-datepicker-calendar) tbody td {
 
 @media screen and (min-width:40em) {
   #primary-tasks.tabs li {
-      display: inline
+    display: inline
   }
 }
 
@@ -705,8 +705,8 @@ table:not(.ui-datepicker-calendar) tbody td {
 
 @media screen and (min-width:40em) {
   #primary-tasks.tabs li a {
-      display: inline-block;
-      border-top: 0
+    display: inline-block;
+    border-top: 0
   }
 }
 
@@ -716,9 +716,9 @@ table:not(.ui-datepicker-calendar) tbody td {
 
 @media screen and (min-width:40em) {
   #primary-tasks.tabs li a.is-active {
-      border: 1px solid #999;
-      border-bottom-color: #fff;
-      margin-bottom: -1px
+    border: 1px solid #999;
+    border-bottom-color: #fff;
+    margin-bottom: -1px
   }
 }
 
@@ -852,13 +852,13 @@ h1:after {
 
 @media screen and (min-width:768px) {
   .no-mobile-display {
-      display: initial
+    display: initial
   }
 }
 
 @media screen and (min-width:768px) {
   .no-tab-display {
-      display: none
+    display: none
   }
 }
 
@@ -868,13 +868,13 @@ h1:after {
 
 @media screen and (min-width:768px) {
   .no-tabdesk-display {
-      display: none
+    display: none
   }
 }
 
 @media screen and (min-width:1024px) {
   .no-desk-display {
-      display: none
+    display: none
   }
 }
 
@@ -1007,8 +1007,8 @@ h1:after {
 
 @media screen and (min-width:40em) {
   .breadcrumb a {
-      font-size: 1em;
-      padding: 0 1.125em 0 1.5em
+    font-size: 1em;
+    padding: 0 1.125em 0 1.5em
   }
 }
 
@@ -1022,7 +1022,7 @@ h1:after {
 
 @media screen and (min-width:768px) {
   .pager__item {
-      font-size: 1.3rem
+    font-size: 1.3rem
   }
 }
 
@@ -1040,28 +1040,28 @@ h1:after {
 
 @media screen and (min-width:768px) {
   #featured-content {
-      float: left;
-      display: block;
-      margin-right: 3.5786636068%;
-      width: 100%;
-      margin-bottom: initial
+    float: left;
+    display: block;
+    margin-right: 3.5786636068%;
+    width: 100%;
+    margin-bottom: initial
   }
 
   #featured-content:last-child {
-      margin-right: 0
+    margin-right: 0
   }
 }
 
 @media screen and (min-width:1024px) {
   #featured-content {
-      float: left;
-      display: block;
-      margin-right: 2.3576515979%;
-      width: 65.8807828007%
+    float: left;
+    display: block;
+    margin-right: 2.3576515979%;
+    width: 65.8807828007%
   }
 
   #featured-content:last-child {
-      margin-right: 0
+    margin-right: 0
   }
 }
 
@@ -1090,27 +1090,27 @@ h1:after {
 
 @media screen and (min-width:768px) {
   .news-events-highlights {
-      float: left;
-      display: block;
-      margin-right: 3.5786636068%;
-      width: 100%
+    float: left;
+    display: block;
+    margin-right: 3.5786636068%;
+    width: 100%
   }
 
   .news-events-highlights:last-child {
-      margin-right: 0
+    margin-right: 0
   }
 }
 
 @media screen and (min-width:1024px) {
   .news-events-highlights {
-      float: left;
-      display: block;
-      margin-right: 2.3576515979%;
-      width: 31.7615656014%
+    float: left;
+    display: block;
+    margin-right: 2.3576515979%;
+    width: 31.7615656014%
   }
 
   .news-events-highlights:last-child {
-      margin-right: 0
+    margin-right: 0
   }
 }
 
@@ -1154,6 +1154,91 @@ h1:after {
   font-size: .875rem
 }
 
+.about-services-events>div {
+  float: left;
+  display: block;
+  margin-right: 7.4229703521%;
+  width: 100%;
+  position: relative;
+  margin-bottom: 30px
+}
+
+.about-services-events>div:last-child {
+  margin-right: 0
+}
+
+@media screen and (min-width:768px) {
+  .about-services-events>.upcoming-events-highlights {
+    float: left;
+    display: block;
+    margin-right: 2.3576515979%;
+    width: 65%;
+  }
+
+  .about-services-events>#calendar {
+    float: left;
+    display: block;
+    margin-right: 3.5786636068%;
+    width: 30%
+  }
+
+  .about-services-events>div:last-child {
+    margin-right: 0
+  }
+}
+
+@media screen and (min-width:1024px) {
+  .about-services-events>.upcoming-events-highlights {
+    float: left;
+    display: block;
+    margin-right: 2.3576515979%;
+    width: 65%;
+  }
+
+  .about-services-events>#calendar {
+    float: left;
+    display: block;
+    margin-right: 2.3576515979%;
+    width: 30%;
+    margin-bottom: 0
+  }
+
+  .about-services-events>div:last-child {
+    margin-right: 0
+  }
+}
+
+.about-services-events>div h2 {
+  font-size: 1.5rem
+}
+
+.about-services-events>div ul {
+  padding: 15px 20px
+}
+
+@media screen and (min-width:768px) {
+  .about-services-events>div ul {
+    height: 470px
+  }
+}
+
+.about-us li,
+.about-us a {
+  color: #fff
+}
+
+.about-us li,
+.services li {
+  padding: 5px 0
+}
+
+.about-us a,
+.services a {
+  font-weight: bold;
+  font-size: 1.125rem;
+  text-decoration: underline
+}
+
 .sidebar-container {
   position: relative
 }
@@ -1171,29 +1256,29 @@ h1:after {
 
 @media screen and (min-width:768px) {
   .sidebar-nav {
-      position: absolute;
-      left: 0;
-      float: left;
-      display: block;
-      margin-right: 3.5786636068%;
-      width: 22.3160022949%
+    position: absolute;
+    left: 0;
+    float: left;
+    display: block;
+    margin-right: 3.5786636068%;
+    width: 22.3160022949%
   }
 
   .sidebar-nav:last-child {
-      margin-right: 0
+    margin-right: 0
   }
 }
 
 @media screen and (min-width:1024px) {
   .sidebar-nav {
-      float: left;
-      display: block;
-      margin-right: 2.3576515979%;
-      width: 23.2317613015%
+    float: left;
+    display: block;
+    margin-right: 2.3576515979%;
+    width: 23.2317613015%
   }
 
   .sidebar-nav:last-child {
-      margin-right: 0
+    margin-right: 0
   }
 }
 
@@ -1205,8 +1290,8 @@ h1:after {
 
 @media screen and (min-width:768px) {
   .sidebar-nav>ul {
-      display: block;
-      margin-left: initial
+    display: block;
+    margin-left: initial
   }
 }
 
@@ -1224,7 +1309,7 @@ h1:after {
 
 @media screen and (min-width:768px) {
   .sidebar-nav li>ul li a {
-      margin-left: .375em
+    margin-left: .375em
   }
 }
 
@@ -1236,7 +1321,7 @@ h1:after {
 
 @media screen and (min-width:768px) {
   #sidebar-nav-title {
-      color: #000
+    color: #000
   }
 }
 
@@ -1248,7 +1333,7 @@ h1:after {
 
 @media screen and (min-width:768px) {
   .featured-text {
-      margin-top: 0
+    margin-top: 0
   }
 }
 
@@ -1258,7 +1343,7 @@ h1:after {
 
 @media screen and (min-width:768px) {
   .page-with-sidebar-content {
-      margin-top: 0
+    margin-top: 0
   }
 }
 
@@ -1456,39 +1541,39 @@ table.account-summary:last-child {
 
 @media screen and (min-width:768px) {
   table.account-summary {
-      float: left;
-      display: block;
-      margin-right: 3.5786636068%;
-      width: 74.1053340983%;
-      margin-bottom: 0
+    float: left;
+    display: block;
+    margin-right: 3.5786636068%;
+    width: 74.1053340983%;
+    margin-bottom: 0
   }
 
   table.account-summary:last-child {
-      margin-right: 0
+    margin-right: 0
   }
 }
 
 @media screen and (min-width:1024px) {
   table.account-summary:first-child {
-      float: left;
-      display: block;
-      margin-right: 3.1684356888%;
-      width: 59.8789416766%
+    float: left;
+    display: block;
+    margin-right: 3.1684356888%;
+    width: 59.8789416766%
   }
 
   table.account-summary:first-child:last-child {
-      margin-right: 0
+    margin-right: 0
   }
 
   table.account-summary:last-child {
-      float: left;
-      display: block;
-      margin-right: 3.1684356888%;
-      width: 36.9526226346%
+    float: left;
+    display: block;
+    margin-right: 3.1684356888%;
+    width: 36.9526226346%
   }
 
   table.account-summary:last-child:last-child {
-      margin-right: 0
+    margin-right: 0
   }
 }
 
@@ -1511,7 +1596,7 @@ table.account-summary tbody th {
 
 @media screen and (min-width:768px) {
   table.account-summary tbody th {
-      width: 210px
+    width: 210px
   }
 }
 
@@ -1529,7 +1614,7 @@ table.account-summary tbody td {
 
 @media screen and (min-width:768px) {
   .modify-column div {
-      width: 90%
+    width: 90%
   }
 }
 
@@ -1566,28 +1651,28 @@ table.account-summary tbody td {
 
 @media screen and (min-width:768px) {
   .community-browse {
-      float: left;
-      display: block;
-      margin-right: 3.5786636068%;
-      width: 30.9475575955%;
-      line-height: inherit
+    float: left;
+    display: block;
+    margin-right: 3.5786636068%;
+    width: 30.9475575955%;
+    line-height: inherit
   }
 
   .community-browse:last-child {
-      margin-right: 0
+    margin-right: 0
   }
 }
 
 @media screen and (min-width:1024px) {
   .community-browse {
-      float: left;
-      display: block;
-      margin-right: 2.3576515979%;
-      width: 31.7615656014%
+    float: left;
+    display: block;
+    margin-right: 2.3576515979%;
+    width: 31.7615656014%
   }
 
   .community-browse:last-child {
-      margin-right: 0
+    margin-right: 0
   }
 }
 
@@ -1675,4 +1760,3 @@ table.account-summary tbody td {
   padding: 10px;
   color: #333
 }
-
