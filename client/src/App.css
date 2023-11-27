@@ -928,20 +928,6 @@ h1:after {
   background-color: #e25a10
 }
 
-.hover-fore:hover,
-.sidebar-nav li>ul li a:hover,
-.sidebar-nav li>a:hover,
-.news-events-highlights li a:hover,
-.collapse-nav-section-links li a:hover:not(.view-all-link),
-.collection-slider .collection-item-title:hover,
-.community-slider .collection-item-title:hover,
-.podcasts-slider .collection-item-title:hover,
-.staff-slider .collection-item-title:hover,
-.events-slider .collection-item-title:hover,
-.explore-collections-slider .collection-item-title:hover {
-  color: #e25a10
-}
-
 .form-width-exception {
   width: 100%
 }
@@ -1038,16 +1024,6 @@ h1:after {
   .pager__item {
       font-size: 1.3rem
   }
-}
-
-.image-slider,
-.collection-slider,
-.community-slider,
-.podcasts-slider,
-.staff-slider,
-.events-slider,
-.explore-collections-slider {
-  display: none
 }
 
 #featured-content {

@@ -2,6 +2,8 @@ import { useState,useEffect  } from 'react';
 import EventPreview from '../components/EventPreview';
 import GTSlider from '../components/GTSlider';
 
+import "../css/SlickSlide.css";
+
 export default function Home(){
   const [events, setEvents] = useState([]);
 
@@ -26,7 +28,10 @@ export default function Home(){
   return (
     <main id="main-content" className="outer-wrapper l-overflow-clear" role="main">
       <div className="l-overflow-clear">
-        <GTSlider/>
+        <div id="featured-content">
+          <h1 class="light-heading">FEATURES</h1>
+          <GTSlider/>
+        </div>
       </div>
       <div className="l-overflow-clear">
         <div className="upcoming-events-highlights">
