@@ -1,0 +1,163 @@
+header nav {
+  clear: both;
+  height: 50px;
+}
+
+@media screen and (min-width:768px) {
+  header nav {
+    background-color: var(--purple)
+  }
+}
+
+@media screen and (min-width:1024px) {
+  header nav {
+    height: 68px
+  }
+}
+
+#aadl-logo-text {
+  float: left;
+  display: block;
+  margin-right: 7.4229703521%;
+  width: 100%;
+  line-height: 50px;
+  height: 50px;
+  background-color: var(--purple);
+  font-weight: bold;
+  font-size: 1.5rem;
+  font-family: "Rokkitt", sans-serif
+}
+
+#aadl-logo-text:last-child {
+  margin-right: 0
+}
+
+@media screen and (min-width:1024px) {
+  #aadl-logo-text {
+    line-height: 68px;
+    height: 68px;
+    font-size: 2.0rem
+  }
+}
+
+#aadl-logo-text img {
+  max-width: 50px;
+  max-height: 50px;
+  height: 100%;
+}
+
+@media screen and (min-width:1024px) {
+  #aadl-logo-text img {
+    max-width: 68px;
+    max-height: 68px
+  }
+}
+
+@media screen and (min-width:768px) {
+  #aadl-logo-text {
+    float: left;
+    display: block;
+    width: 48.21067%
+  }
+
+  #aadl-logo-text:last-child {
+    margin-right: 0
+  }
+}
+
+@media screen and (min-width:1024px) {
+  #aadl-logo-text {
+    float: left;
+    display: block;
+    margin-right: 2.3576515979%;
+    width: 31.275%;
+    font-size: 2.0rem
+  }
+
+  #aadl-logo-text:last-child {
+    margin-right: 0
+  }
+}
+
+#aadl-logo-text span {
+  height: 100%
+}
+
+@media screen and (min-width:768px) {
+  #aadl-logo-text span {
+    position: relative;
+  }
+}
+
+a #gtsystem-logo-1 {
+  color: var(--yellow)
+}
+
+a #gtsystem-logo-2 {
+  color: var(--orange)
+}
+
+.main-nav-item {
+  width: 33.3%;
+  float: left;
+  padding: 15px 0;
+  font-size: .95rem;
+  text-align: center;
+  transition: all .3s
+}
+
+@media screen and (min-width:768px) {
+  .main-nav-item {
+    float: left;
+    display: block;
+    margin-right: 3.57866%;
+    width: 14.78%;
+    line-height: 50px;
+    height: 50px;
+    margin-right: 0;
+    padding: initial;
+    font-size: .938rem
+  }
+
+  .main-nav-item:last-child {
+    margin-right: 0
+  }
+
+  .main-nav-item:hover {
+    border-bottom: 7px solid var(--yellow)
+  }
+}
+
+@media screen and (min-width:1024px) {
+  .main-nav-item {
+    float: left;
+    display: block;
+    margin-right: 2.35765%;
+    width: 10.951%;
+    margin-right: 0;
+    line-height: 68px;
+    height: 68px
+  }
+
+  .main-nav-item:last-child {
+    margin-right: 0
+  }
+}
+
+.main-nav-item a {
+  padding: 10%;
+  text-decoration: initial
+}
+
+@media screen and (min-width:768px) {
+  .main-nav-item a {
+    position: relative;
+    text-decoration: none
+  }
+}
+
+@media screen and (min-width:1024px) {
+  .main-nav-item:nth-child(1) {
+    margin-left: 33.5%
+  }
+}

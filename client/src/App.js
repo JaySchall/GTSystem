@@ -1,8 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import logo from './logo.svg';
 import './App.css';
-import Navbar from "./Navbar";
+import Header from "./header/Header";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Events from "./pages/Events";
@@ -42,16 +41,16 @@ function App() {
   return (
     
     <Router>
-      <div>
-        <Navbar/>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/faq" element={<FAQ />} />
-        <Route path="/form" element={<Form />} />
-        <Route path="/events" element={<Events />} />
-        <Route path="/events/:id" element={<EventPage />} />
-      </Routes>
+      <div class="page outer-wrapper" role="document"> 
+        <Header/>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/faq" element={<FAQ />} />
+          <Route path="/form" element={<Form />} />
+          <Route path="/events" element={<Events />} />
+          <Route path="/events/:id" element={<EventPage />} />
+        </Routes>
       </div>
       
     </Router>
