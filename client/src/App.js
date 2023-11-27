@@ -1,14 +1,14 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
-import Header from "./header/Header";
+import Header from "./components/header/Header";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Events from "./pages/Events";
 import FAQ from "./pages/FAQ";
 import Form from "./pages/Form";
 import EventPage from "./pages/EventPage";
-import Footer from "./footer/Footer"
+import Footer from "./components/footer/Footer"
 
 function App() {
   let component
@@ -44,7 +44,7 @@ function App() {
     <Router>
       <div className="page outer-wrapper" role="document"> 
         <Header/>
-        <main id="main-content" class="outer-wrapper l-overflow-clear" role="main">
+        <main id="main-content" className="outer-wrapper l-overflow-clear" role="main">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />

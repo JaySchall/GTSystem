@@ -6,12 +6,8 @@ import DOMPurify from 'dompurify';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 
-import mk8d from '../img/games/mariokart8deluxe.jpg';
-import ssbu from '../img/games/ssbu.jpg';
-import splatoon3 from '../img/games/splatoon3.jpeg';
-import gamecube from '../img/games/gamecube.png';
-import unknownImage from '../img/games/meeting.png'
-
+import { ImageChooser } from '../utils/EventMethods';
+import { PretifyDate } from '../utils/EventMethods';
 
 import '../css/EventsPage.css';
 
@@ -46,28 +42,6 @@ function h2Helper(title) {
     return (
       <h2 className="no-margin">{title}</h2>
     )
-}
-
-function ImageChooser(eventType) {
-  if (eventType === "Splatoon 3") {
-    return splatoon3;
-  }
-  else if (eventType === "Mario Kart 8 Deluxe") {
-    return mk8d;
-  }
-  else if (eventType === "Super Smash Bros Ultimate") {
-    return ssbu;
-  }
-  else if (eventType === "Gamecube") {
-    return gamecube;
-  }
-  else {
-    return unknownImage;
-  }
-}
-
-function PretifyDate(start, end) {
- // start.toDateString() === end.toDateString()
 }
 
 export default function EventPage(){
@@ -112,7 +86,7 @@ export default function EventPage(){
             <EventTabs value={value} index={0}>
                 <h1 className="no-margin">{ eventDetails.name }</h1>
                 { h2Helper("When") }
-                <p>{/* Stylized when (<day> <month> <date>, <year>: <start time> to <stop time>) */}</p>
+                <p>{PretifyDate(eventDetails.startTime, eventDetails.endTime)}</p>
                 { h2Helper("Where") }
                 <p>{ eventDetails.location }</p>
                 { h2Helper("Description") }

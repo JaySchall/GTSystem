@@ -1,4 +1,6 @@
 import React, { useState,useEffect  } from 'react';
+import EventPreview from '../components/EventPreview';
+
 export default function Home(){
     const [events, setEvents] = useState([]);
 
@@ -21,16 +23,11 @@ export default function Home(){
   }, []); // Empty dependency array ensures the effect runs only once, similar to componentDidMount
 
   return (
-    <div>
-      <h2>events</h2>
+    <div className="upcoming-events-highlights">
+      <h2 className="ruled-heading t-center"><span>Events</span></h2>
       <ul>
         {events.map((event) => (
-          <li key={event.id}>
-            <strong>{event.name}</strong>
-            <p>Date: {event.dateStoredInSeconds}</p>
-            <p>Location: {event.location}</p>
-            <p>Description: {event.description}</p>
-          </li>
+          EventPreview(event)
         ))}
       </ul>
     </div>
