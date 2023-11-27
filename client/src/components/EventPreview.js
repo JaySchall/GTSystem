@@ -17,5 +17,5 @@ export default function EventPreview(eventInfo){
             </div>
         </a>
       </li>
-    )
+    );
 }
