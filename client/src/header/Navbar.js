@@ -1,5 +1,5 @@
-import logo from '../logo.svg';
-import './Navbar.css';
+import logo from '../img/logo.svg';
+import '../css/Navbar.css';
 
 export default function Navbar(){
     return(
@@ -10,9 +10,9 @@ export default function Navbar(){
                 <span id="gtsystem-logo-2">SYSTEM</span>
             </a>
             <ul>
-                <li class="main-nav-item"><a href="/About">About Us</a></li>
-                <li class="main-nav-item"><a href="/Events">Events</a></li>
-                <li class="main-nav-item"><a href="/FAQ">FAQ</a></li>
+                <li className="main-nav-item"><a href="/About">About Us</a></li>
+                <li className="main-nav-item"><a href="/Events">Events</a></li>
+                <li className="main-nav-item"><a href="/FAQ">FAQ</a></li>
             </ul>
         </nav>
     )

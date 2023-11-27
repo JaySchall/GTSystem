@@ -8,6 +8,7 @@ import Events from "./pages/Events";
 import FAQ from "./pages/FAQ";
 import Form from "./pages/Form";
 import EventPage from "./pages/EventPage";
+import Footer from "./footer/Footer"
 
 function App() {
   let component
@@ -41,16 +42,19 @@ function App() {
   return (
     
     <Router>
-      <div class="page outer-wrapper" role="document"> 
+      <div className="page outer-wrapper" role="document"> 
         <Header/>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/faq" element={<FAQ />} />
-          <Route path="/form" element={<Form />} />
-          <Route path="/events" element={<Events />} />
-          <Route path="/events/:id" element={<EventPage />} />
-        </Routes>
+        <main id="main-content" class="outer-wrapper l-overflow-clear" role="main">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/faq" element={<FAQ />} />
+            <Route path="/form" element={<Form />} />
+            <Route path="/events" element={<Events />} />
+            <Route path="/events/:id" element={<EventPage />} />
+          </Routes>
+        </main>
+        <Footer/>
       </div>
       
     </Router>
