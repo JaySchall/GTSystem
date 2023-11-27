@@ -26,7 +26,7 @@ export default function TagEvents() {
     }, [name]);
 
     return (
-        <div>
+        <div className='upcoming-events-highlights custom-view'>
             <h1>Events with Tag: {name}</h1>
             <ul>
                 {events.map((event) => (

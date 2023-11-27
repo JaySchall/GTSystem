@@ -24,6 +24,10 @@
   }
   
   @media screen and (min-width:1024px) {
+    .upcoming-events-highlights.custom-view{
+        width: 100%
+    }
+
     .upcoming-events-highlights {
         float: left;
         display: block;

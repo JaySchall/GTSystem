@@ -110,7 +110,7 @@ export default function EventPage(){
                 <br />
                 <a href={`/tags/${encodeURIComponent(tag.replace(/\s+/g, '-'))}`}>{tag}</a>
               </React.Fragment>
-            ))}
+              ))}
             </p>
           </div>
         </div>
