@@ -11,7 +11,7 @@ export default function Connect(){
         <p className="t-center">LET'S CONNECT!</p>
         <div className="connect-links-1">
           <a href="https://aadl.org/">
-            <img src={ aadlLogo } />
+            <img src={ aadlLogo } alt="AADL Logo" />
             AADL.org
           </a>
           <a href="https://twitter.com/aadl">

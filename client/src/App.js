@@ -8,7 +8,7 @@ import Events from "./pages/Events";
 import FAQ from "./pages/FAQ";
 import Form from "./pages/Form";
 import EventPage from "./pages/EventPage";
-import CreateBracket from "./pages/CreateBracket.js"
+import CreateBracket from "./pages/CreateEvent.js"
 import ManageBracket from "./pages/ManageBracket.js"
 import Tags from './pages/Tags';
 import TagEvents from './pages/TagEvents';
@@ -32,10 +32,12 @@ function App() {
     case "/Form":
       component = <Form />
       break;
-    case "/Events/:id/Create":
+    case "/Create/Event":
       component = <CreateBracket />
+      break;
     case "/Events/:id/Manage":
       component = <ManageBracket />
+      break;
     default:
       break;
   }
@@ -59,7 +61,7 @@ function App() {
             <Route path="/form" element={<Form />} />
             <Route path="/events" element={<Events />} />
             <Route path="/events/:id" element={<EventPage />} />
-            <Route path="/events/:id/Create" element={<CreateBracket />} />
+            <Route path="/create/event" element={<CreateBracket />} />
             <Route path="/events/:id/Manage" element={<ManageBracket />} />
             <Route path="/tags" element={<Tags />} />
             <Route path="/tags/:name" element={<TagEvents />} />

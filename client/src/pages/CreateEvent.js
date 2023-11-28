@@ -1,9 +1,9 @@
-import CreateBracketForm from "../components/forms/CreateBracket.js"
+import CreateBracketForm from "../components/forms/CreateEvent.js"
 
 export default function CreateBracket(){
     return (
         <div className="create-bracket-form">
-            <h1>Create Bracket</h1><br />
+            <h1>Create Event</h1><br />
             <CreateBracketForm />
         </div>
     );

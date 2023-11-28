@@ -52,9 +52,6 @@ const ManageBracketForm = () => {
 
   return (
     <Container alignItems="flex-start" maxWidth="sm" sx={{ paddingBottom: '40px'}} >
-      <Typography variant="h5" fontWeight='fontWeightMedium' sx={{ paddingTop: '20px' }} align="center" gutterBottom>
-        Manage Bracket
-      </Typography>
       <form onSubmit={handleSubmit} sx={{ textAlign: 'center' }}>
         <TextField
           label="Bracket Name"
