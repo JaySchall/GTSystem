@@ -7,7 +7,10 @@ import "../css/SlickSlide.css";
 
 export default function Home(){
   const [events, setEvents] = useState([]);
-  const previewEvents = events.slice(0, 4);
+  const currentDate = new Date().toISOString();
+  const filteredEvents = events.filter(event => event.startTime >= currentDate);
+  filteredEvents.sort((a, b) => new Date(a.startTime) - new Date(b.startTime));
+  const previewEvents = filteredEvents.slice(0, 5);
 
   useEffect(() => {
     const fetchEvents = async () => {
