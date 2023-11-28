@@ -7,6 +7,7 @@ import "../css/SlickSlide.css";
 
 export default function Home(){
   const [events, setEvents] = useState([]);
+  const previewEvents = events.slice(0, 4);
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -38,7 +39,7 @@ export default function Home(){
         <div className="upcoming-events-highlights">
           <h2 className="ruled-heading t-center"><span>Events</span></h2>
           <ul>
-            {events.map((event) => (
+            {previewEvents.map((event) => (
               EventPreview(event)
             ))}
           </ul>
