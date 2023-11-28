@@ -90,9 +90,9 @@ export default function EventPage(){
                 { h2Helper("Where") }
                 <p>{ eventDetails.location }</p>
                 { h2Helper("Description") }
-                <p/><p>
-                  <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(eventDetails.description) }}/>
-                </p><p/>
+                <p/>
+                <p dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(eventDetails.description) }} />
+                <p/>
             </EventTabs>
             <EventTabs value={value} index={1}>
 

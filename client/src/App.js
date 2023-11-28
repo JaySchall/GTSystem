@@ -54,18 +54,20 @@ function App() {
     <Router>
       <div className="page outer-wrapper" role="document"> 
         <Header/>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/faq" element={<FAQ />} />
-            <Route path="/form" element={<Form />} />
-            <Route path="/events" element={<Events />} />
-            <Route path="/events/:id" element={<EventPage />} />
-            <Route path="/create/event" element={<CreateBracket />} />
-            <Route path="/events/:id/Manage" element={<ManageBracket />} />
-            <Route path="/tags" element={<Tags />} />
-            <Route path="/tags/:name" element={<TagEvents />} />
-          </Routes>
+          <main id="main-content" class="outer-wrapper l-overflow-clear" role="main">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/faq" element={<FAQ />} />
+              <Route path="/form" element={<Form />} />
+              <Route path="/events" element={<Events />} />
+              <Route path="/events/:id" element={<EventPage />} />
+              <Route path="/create/event" element={<CreateBracket />} />
+              <Route path="/events/:id/Manage" element={<ManageBracket />} />
+              <Route path="/tags" element={<Tags />} />
+              <Route path="/tags/:name" element={<TagEvents />} />
+            </Routes>
+          </main>
         <Footer/>
       </div>
       

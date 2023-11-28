@@ -2,7 +2,6 @@ export default function FAQ(){
     return (
       <article>
         <h1>FAQ</h1>
-        <br/>
         <h2>What is the age limit?</h2>
         <p>
           Our tournaments are all-ages. If you're interested in playing the

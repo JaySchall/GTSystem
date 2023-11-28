@@ -283,6 +283,7 @@ dl dd {
 }
 
 table {
+  border-spacing: 0;
   border-collapse: collapse;
   font-feature-settings: "kern", "liga", "tnum";
   margin: .75em 0;
@@ -1373,109 +1374,6 @@ h1:after {
 
 .view-id-events_day form,
 .view-id-events form {
-  display: none
-}
-
-#events-calendar .ui-datepicker {
-  border: none
-}
-
-.ui-datepicker {
-  width: 100%;
-  height: 470px;
-  border-collapse: separate
-}
-
-.ui-datepicker table {
-  border-collapse: separate
-}
-
-.ui-datepicker thead tr {
-  height: 40px
-}
-
-.ui-datepicker thead th {
-  background: none
-}
-
-.ui-datepicker .ui-datepicker-next {
-  right: 20%
-}
-
-.ui-datepicker .ui-datepicker-prev {
-  left: 20%
-}
-
-.ui-datepicker .ui-datepicker-next span,
-.ui-datepicker .ui-datepicker-prev span {
-  height: 34px;
-  margin-top: -22px;
-  background-image: none;
-  font-size: 30px;
-  text-indent: initial;
-  overflow: visible
-}
-
-.ui-datepicker .ui-datepicker-next.ui-state-hover,
-.ui-datepicker .ui-datepicker-prev.ui-state-hover {
-  border: 0;
-  background: none
-}
-
-.ui-datepicker .ui-datepicker-next .fa,
-.ui-datepicker .ui-datepicker-prev .fa {
-  padding: 5px;
-  cursor: pointer
-}
-
-.ui-datepicker .ui-datepicker-next .fa:focus,
-.ui-datepicker .ui-datepicker-prev .fa:focus {
-  border: 1px solid rgba(0, 0, 0, .4)
-}
-
-.ui-datepicker .ui-state-default {
-  border: 0;
-  background: none
-}
-
-.ui-datepicker .ui-datepicker-today {
-  background: #06c
-}
-
-.ui-datepicker .ui-datepicker-today a {
-  color: #fff
-}
-
-.ui-datepicker .ui-datepicker-unselectable {
-  background: #999
-}
-
-.ui-datepicker td {
-  background-color: #e6f2ff;
-  border: 2px solid #fff
-}
-
-.ui-datepicker td:hover {
-  background-color: #e25a10
-}
-
-.ui-datepicker td:hover a {
-  color: #fff
-}
-
-.ui-datepicker td a,
-.ui-datepicker td span {
-  padding: 15px 0;
-  text-align: center;
-  color: #fff
-}
-
-.ui-datepicker-header {
-  background: none;
-  border: 0
-}
-
-.ui-datepicker-year {
   display: none
 }
 

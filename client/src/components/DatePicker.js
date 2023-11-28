@@ -4,6 +4,8 @@ import 'jquery-ui/ui/widgets/datepicker';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
+import "../css/DatePicker.css"
+
 library.add(faAngleLeft, faAngleRight);
 
 export default function MyDatePicker() {
@@ -11,7 +13,8 @@ export default function MyDatePicker() {
         // Initialize Datepicker
         $('#events-calendar').datepicker({
             prevText: "<",
-            nextText: ">"
+            nextText: ">",
+            minDate:0
         });
     }, []);
 
