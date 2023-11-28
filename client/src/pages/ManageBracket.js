@@ -1,4 +1,4 @@
-import ManageBracketForm from "../components/forms/ManageBracket"
+import ManageBracketForm from "../components/forms/ManageBracket.js"
 
 export default function ManageBracket(){
     return (

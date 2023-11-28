@@ -30,7 +30,7 @@ export default function Home(){
     <main id="main-content" className="outer-wrapper l-overflow-clear" role="main">
       <div className="l-overflow-clear">
         <div id="featured-content">
-          <h1 class="light-heading">FEATURES</h1>
+          <h1 className="light-heading">FEATURES</h1>
           <GTSlider/>
         </div>
       </div>
