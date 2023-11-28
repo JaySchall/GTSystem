@@ -27,16 +27,12 @@ export default function TagEvents() {
 
     return (
         <div className='upcoming-events-highlights custom-view'>
-            <h1>Events with Tag: {name}</h1>
+          <h1>Events with Tag: {name}</h1>
             <ul>
-                {events.map((event) => (
-                    <ul>
-                    {events.map((event) => (
-                      EventPreview(event)
-                    ))}
-                  </ul>
-                ))}
-            </ul>
+              {events.map((event) => (
+                  EventPreview(event)
+              ))}
+          </ul>
         </div>
     );
 }

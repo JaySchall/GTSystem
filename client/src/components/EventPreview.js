@@ -8,8 +8,8 @@ export default function EventPreview(eventInfo){
             <div className="highlight-left">
                 {eventInfo.name}
                 <br/>
-                <span className="highlight-type">{ PretifyDate(eventInfo.startTime, eventInfo.endTime) }</span><br/>
-                <span className="highlight-type">{ eventInfo.location }</span>
+                <span className="highlight-type no-wrap">{ PretifyDate(eventInfo.startTime, eventInfo.endTime) }</span><br/>
+                <span className="highlight-type no-wrap">{ eventInfo.location }</span>
             </div>
             <div className="highlight-right">
                 <img src={ ImageChooser(eventInfo.game) } alt={ eventInfo.game }/>

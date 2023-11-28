@@ -54,7 +54,7 @@ function App() {
     <Router>
       <div className="page outer-wrapper" role="document"> 
         <Header/>
-          <main id="main-content" class="outer-wrapper l-overflow-clear" role="main">
+          <main id="main-content" className="outer-wrapper l-overflow-clear" role="main">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />

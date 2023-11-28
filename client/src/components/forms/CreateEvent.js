@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const whereOptionsList = [
     "265 Parkland Plaza",
@@ -46,7 +46,6 @@ const whereOptionsList = [
 
 const CreateBracketForm = () => {
   // State variables for form inputs
-  const { id } = useParams();
   const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -62,22 +61,51 @@ const CreateBracketForm = () => {
   const [tags, setTags] = useState('');
 
   // Function to handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log({
-      title,
-      description,
-      whereOptions,
-      startTime,
-      endTime,
-      game,
-      tags,
+    
+    var trueLocations = Object.keys(whereOptions).filter(function(key) {
+      return whereOptions[key] === true;
     });
+    var locations = trueLocations.join(', ');
+    var startDate = new Date(startTime);
+    var endDate = new Date(endTime);
+
+    const eventForm = {
+      name: title,
+      location: locations,
+      startTime: startDate.toISOString(), 
+      endTime: endDate.toISOString(), 
+      description: description, 
+      game: game,
+      tags: tags.split(",").map(item => item.trim()),
+    }
+
+    try {
+      const response = await fetch('/api/create-event', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(eventForm),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to create event');
+      }
+
+      const responseData = await response.json();
+      console.log(responseData);
+      navigate(`/Events/${responseData.id}`);
+    } catch (error) {
+      console.error('Error creating event:', error.message);
+      // Handle error, show a message, etc.
+    }
+
   };
 
   const handleCancel = () =>{
-    navigate(`/Events/${id}`);
+    navigate(`/`);
   };
 
   const handleWhereOptionChange = (option) => {
@@ -150,12 +178,11 @@ const CreateBracketForm = () => {
       <label>
         Game:
         <select value={game} onChange={(e) => setGame(e.target.value)}>
+          <option value="" disabled selected>Select a game</option>
           <option value="Splatoon 3">Splatoon 3</option>
           <option value="Super Smash Bros Ultimate">Super Smash Bros Ultimate</option>
           <option value="Mario Kart 8 Deluxe">Mario Kart 8 Deluxe</option>
           <option value="Gamecube">Gamecube</option>
-
-          {/* Add more options as needed */}
         </select>
       </label>
 
