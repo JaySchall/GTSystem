@@ -1,6 +1,13 @@
-import React, { useState,useEffect  } from 'react';
+import { useState,useEffect  } from 'react';
+import EventPreview from '../components/EventPreview';
+import GTSlider from '../components/GTSlider';
+import MyDatePicker from '../components/DatePicker';
+
+import "../css/SlickSlide.css";
+
 export default function Home(){
-    const [events, setEvents] = useState([]);
+  const [events, setEvents] = useState([]);
+  const previewEvents = events.slice(0, 4);
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -21,18 +28,27 @@ export default function Home(){
   }, []); // Empty dependency array ensures the effect runs only once, similar to componentDidMount
 
   return (
-    <div>
-      <h2>events</h2>
-      <ul>
-        {events.map((event) => (
-          <li key={event.id}>
-            <strong>{event.name}</strong>
-            <p>Date: {event.dateStoredInSeconds}</p>
-            <p>Location: {event.location}</p>
-            <p>Description: {event.description}</p>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <main id="main-content" className="outer-wrapper l-overflow-clear" role="main">
+      <div className="l-overflow-clear">
+        <div id="featured-content">
+          <h1 className="light-heading">FEATURES</h1>
+          <GTSlider/>
+        </div>
+      </div>
+      <div className="l-overflow-clear about-services-events">
+        <div className="upcoming-events-highlights">
+          <h2 className="ruled-heading t-center"><span>Events</span></h2>
+          <ul>
+            {previewEvents.map((event) => (
+              EventPreview(event)
+            ))}
+          </ul>
+        </div>
+        <div id="calendar">
+          <h2 className="ruled-heading t-center">Calendar</h2>
+          <MyDatePicker />
+        </div>
+      </div>
+    </main>
   );
 }

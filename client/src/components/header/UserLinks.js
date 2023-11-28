@@ -1,4 +1,4 @@
-import '../css/UserLinks.css';
+import '../../css/UserLinks.css';
 
 export default function Navbar(){
     return(

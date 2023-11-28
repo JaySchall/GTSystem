@@ -1,14 +1,18 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
-import Header from "./header/Header";
+import Header from "./components/header/Header";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Events from "./pages/Events";
 import FAQ from "./pages/FAQ";
 import Form from "./pages/Form";
 import EventPage from "./pages/EventPage";
-import Footer from "./footer/Footer"
+import CreateBracket from "./pages/CreateEvent.js"
+import ManageBracket from "./pages/ManageBracket.js"
+import Tags from './pages/Tags';
+import TagEvents from './pages/TagEvents';
+import Footer from "./components/footer/Footer"
 
 function App() {
   let component
@@ -28,6 +32,12 @@ function App() {
     case "/Form":
       component = <Form />
       break;
+    case "/Create/Event":
+      component = <CreateBracket />
+      break;
+    case "/Events/:id/Manage":
+      component = <ManageBracket />
+      break;
     default:
       break;
   }
@@ -44,16 +54,20 @@ function App() {
     <Router>
       <div className="page outer-wrapper" role="document"> 
         <Header/>
-        <main id="main-content" class="outer-wrapper l-overflow-clear" role="main">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/faq" element={<FAQ />} />
-            <Route path="/form" element={<Form />} />
-            <Route path="/events" element={<Events />} />
-            <Route path="/events/:id" element={<EventPage />} />
-          </Routes>
-        </main>
+          <main id="main-content" class="outer-wrapper l-overflow-clear" role="main">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/faq" element={<FAQ />} />
+              <Route path="/form" element={<Form />} />
+              <Route path="/events" element={<Events />} />
+              <Route path="/events/:id" element={<EventPage />} />
+              <Route path="/create/event" element={<CreateBracket />} />
+              <Route path="/events/:id/Manage" element={<ManageBracket />} />
+              <Route path="/tags" element={<Tags />} />
+              <Route path="/tags/:name" element={<TagEvents />} />
+            </Routes>
+          </main>
         <Footer/>
       </div>
       

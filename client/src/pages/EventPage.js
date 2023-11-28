@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import DOMPurify from 'dompurify';
+
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import '../css/EventsPage.css'
+
+import { ImageChooser } from '../utils/EventMethods';
+import { PretifyDate } from '../utils/EventMethods';
+
+import '../css/EventsPage.css';
 
 function EventTabs(props) {
     const { children, value, index, ...other } = props;
@@ -36,10 +42,6 @@ function h2Helper(title) {
     return (
       <h2 className="no-margin">{title}</h2>
     )
-}
-
-function ImageChooser(eventType) {
-  
 }
 
 export default function EventPage(){
@@ -84,11 +86,13 @@ export default function EventPage(){
             <EventTabs value={value} index={0}>
                 <h1 className="no-margin">{ eventDetails.name }</h1>
                 { h2Helper("When") }
-                <p>{/* Stylized when (<day> <month> <date>, <year>: <start time> to <stop time>) */}</p>
+                <p>{PretifyDate(eventDetails.startTime, eventDetails.endTime)}</p>
                 { h2Helper("Where") }
                 <p>{ eventDetails.location }</p>
                 { h2Helper("Description") }
-                <p/><p>{ eventDetails.description }</p><p/>
+                <p/>
+                <p dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(eventDetails.description) }} />
+                <p/>
             </EventTabs>
             <EventTabs value={value} index={1}>
 
@@ -96,12 +100,17 @@ export default function EventPage(){
           </div>
           <div id="record-image-metadata">
             <div>
-              <img src={ ImageChooser({/* Event game */}) } alt="Graphic for events post"/>
-              <p>{/* Event Game */} Tournament</p>
+              <img src={ ImageChooser(eventDetails.game) } alt="Graphic for events post"/>
+              <p>{ eventDetails.game } Tournament</p>
             </div>
             <p>
               <b>Tags</b>
-              {/*For each tag create <br/><a href="/feed/tag">{tagname}</a> */}
+              {eventDetails.tags && eventDetails.tags.split(',').map((tag, index) => (
+              <React.Fragment key={index}>
+                <br />
+                <a href={`/tags/${encodeURIComponent(tag.replace(/\s+/g, '-'))}`}>{tag}</a>
+              </React.Fragment>
+              ))}
             </p>
           </div>
         </div>

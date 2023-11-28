@@ -249,3 +249,7 @@
 button #event-tab-button {
     background-color: var(--purple);
 }
+
+#record-image-metadata img {
+    max-width: 100%;
+}
