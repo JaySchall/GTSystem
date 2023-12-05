@@ -79,9 +79,33 @@ app.post('/api/create-event', (req, res) => {
   );
 });
 
-// INSERT BRACKET CALL
+// CREATE NEW BRACKET
+app.post('/api/create-bracket', (req, res) => {
+  const { name, eventid, style, stations, perStation, numRounds, thirdPlace, 
+    seeded, published, started } = req.body;
+});
 
-// MODIFY BRACKET CALL
+// UPDATE BRACKET
+app.post('/api/edit-bracket', (req, res) => {
+  const { bracketid, eventid, name = None, style = None, stations = None, perStation = None, 
+    numRounds = None, thirdPlace = None, seeded = None, published = None,
+    started, participants } = req.body;
+});
+
+// DELETE BRACKET
+app.post('/api/delete-bracket', (req, res) => {
+  const { bracketid } = req.body;
+});
+
+// UPDATE MATCH
+app.post('/api/update-match', (req, res) => {
+  const { matchid, bracketid, results } = req.body;
+});
+
+// DQ PLAYER
+app.post('/api/dq-player'), (req, res) => {
+  const { playerid, eventid } = req.body;
+}
 
 app.get('/api/event/:id', (req, res) => {
   const { id } = req.params;
