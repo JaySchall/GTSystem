@@ -10,6 +10,51 @@ app.use(express.urlencoded({ extended: true }));
 
 const db = new sqlite3.Database('tournament.db');
 
+
+// Helper functions 
+
+const User = {
+  find: (partialUsername) => {
+    const regex = new RegExp(`^${partialUsername}`, 'i');
+    const query = `%${partialUsername}%`
+    return new Promise((resolve,reject) => {
+      const sql = 'SELECT * FROM players WHERE user_id LIKE ? OR name LIKE ?';
+      db.all(sql, [query, query], (err, rows) => {
+        if(err) {
+          reject(err);
+        } else {
+          resolve(rows);
+        }
+      })
+    })
+  }
+}
+
+function getBrackets(id) {
+  return new Promise((resolve, reject) => {
+    db.all('SELECT * FROM brackets WHERE event_id=?', [id], (err, rows) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(rows);
+      }
+    });
+  });
+}
+
+function getParticipants(eventId, bracketId) {
+  return new Promise((resolve, reject) => {
+    db.all('SELECT * FROM participants WHERE event_id=? AND bracket_id=?', [eventId, bracketId], (err, playerRows) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(playerRows);
+      }
+    });
+  });
+}
+
+
 app.get("/api", (req, res) => {
   res.json({ message: "Hello from server!" });
 });
@@ -79,17 +124,143 @@ app.post('/api/create-event', (req, res) => {
   );
 });
 
+// UPDATE EVENT
+app.post('/api/edit-event', (req, res) => {
+  const { id, name, location, startTime, endTime, description, game, tags } = req.body;
+
+  // Insert data into the events table
+  db.run(
+    'UPDATE events SET name = ?, location = ?, startTime = ?, endTime = ?, ' +
+    'description = ?, game = ? WHERE id = ?',
+    [name, location, startTime, endTime, description, game, id],
+    function (err) {
+      if (err) {
+        console.error('Error updating event data:', err);
+        res.status(500).json({ error: 'Internal Server Error' });
+      } 
+
+      // Insert tags
+      tags.forEach(tag => {
+        db.get('SELECT id FROM tags WHERE name = ?', [tag], (err, row) => {
+          if (err) {
+            console.error('Error checking for existing tag:', err);
+            return res.status(500).json({ error: 'Internal Server Error' });
+          }
+
+          if (row) {
+            // Tag already exists, use the existing tag ID
+            const tagId = row.id;
+            
+            db.get('SELECT * FROM event_tags WHERE event_id = ? AND tag_id = ?', 
+              [id, tagId], (err, row) => {
+              if (err) {
+                console.error('Error checking for existing tag:', err);
+                return res.status(500).json({ error: 'Internal Server Error' });
+              }
+              if(!row){
+                // Insert the relationship into the 'event_tags' table
+                db.run('INSERT INTO event_tags (event_id, tag_id) VALUES (?, ?)', [id, tagId], function (err) {
+                  if (err) {
+                    console.error('Error inserting item_tag relationship:', err);
+                    return res.status(500).json({ error: 'Internal Server Error' });
+                  }
+                });
+              }
+            });
+          } else {
+            // Tag does not exist, insert the new tag
+            db.run('INSERT INTO tags (name) VALUES (?)', [tag], function (err) {
+              if (err) {
+                console.error('Error inserting tag data:', err);
+                return res.status(500).json({ error: 'Internal Server Error' });
+              }
+
+              const tagId = this.lastID;
+
+              // Insert the relationship into the 'event_tags' table
+              db.run('INSERT INTO event_tags (event_id, tag_id) VALUES (?, ?)', [id, tagId], function (err) {
+                if (err) {
+                  console.error('Error inserting item_tag relationship:', err);
+                  return res.status(500).json({ error: 'Internal Server Error' });
+                }
+              });
+            });
+          }
+        });
+
+      });
+      
+      res.status(200).json({ 
+        message: 'Event created updated',
+        id: id,
+      });
+    }
+  );
+});
+
 // CREATE NEW BRACKET
 app.post('/api/create-bracket', (req, res) => {
-  const { name, eventid, style, stations, perStation, numRounds, thirdPlace, 
-    seeded, published, started } = req.body;
+  const { eventid, name, style, total_stations, players_per_station, rounds,
+    players_move_on, third_place_match, seeded, published, started } = req.body;
+
+  db.run( 'INSERT INTO brackets (event_id, name, style, total_stations, ' +
+    'players_per_station, rounds, players_move_on, third_place_match, seeded, '+
+    'published, started) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [eventid,
+    name, style, total_stations, players_per_station, rounds, players_move_on,
+    third_place_match, seeded, published, started], 
+    function (err) {
+      if (err) {
+        console.error('Error inserting bracket data:', err);
+        res.status(500).json({ error: 'Internal Server Error' });
+      } 
+      const bracket_id = this.lastID;
+      res.status(200).json({ 
+        message: 'Bracket created successfully',
+        id: bracket_id,
+      });
+    }
+  );
+});
+
+// GET BRACKET DATA
+app.get('/api/bracket/:id', (req, res) => {
+  const { id } = req.params;
+  
+  db.get('SELECT * FROM brackets WHERE id=?', [id], (err, row) => {
+    if (err) {
+      console.error('Error getting bracket details:', err);
+      res.status(500).json({ error: 'Internal Server Error' });
+    } else {
+      if (row) {
+        res.status(200).json(row);
+      } else {
+        res.status(404).json({ error: 'Bracket not found' });
+      }
+    }
+  });
 });
 
 // UPDATE BRACKET
 app.post('/api/edit-bracket', (req, res) => {
-  const { bracketid, eventid, name = None, style = None, stations = None, perStation = None, 
-    numRounds = None, thirdPlace = None, seeded = None, published = None,
-    started, participants } = req.body;
+  const { id, event_id, name, style, total_stations, players_per_station, 
+    rounds, players_move_on, third_place_match, seeded, published, started, 
+    completed } = req.body;
+
+    db.run('UPDATE brackets SET name = ?, style = ?, total_stations = ?, ' +
+    'players_per_station = ?, rounds = ?, players_move_on = ?, third_place_match = ?, ' +
+    'seeded = ?, published = ?, started = ?, completed = ? WHERE id = ?', [
+    name, style, total_stations, players_per_station, rounds, players_move_on,
+    third_place_match, seeded, published, started, completed, id], 
+    function (err) {
+      if (err) {
+        console.error('Error updating bracket data:', err);
+        res.status(500).json({ error: 'Internal Server Error' });
+      } 
+      res.status(200).json({ 
+        message: 'Bracket created updated',
+      });
+    }
+  );
 });
 
 // DELETE BRACKET
@@ -106,6 +277,36 @@ app.post('/api/update-match', (req, res) => {
 app.post('/api/dq-player'), (req, res) => {
   const { playerid, eventid } = req.body;
 }
+
+// GET BRACKETS FOR AN EVENT
+app.get('/api/event/:id/bracket', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const brackets = await getBrackets(id);
+
+    for (const bracket of brackets) {
+      const playerRows = await getParticipants(id, bracket.id);
+      bracket.participants = playerRows || [];
+    }
+
+    res.status(200).json(brackets);
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// GET USERNAME FOR SEARCHING
+app.get('/api/usernames', async (req, res) =>{
+  const { partialUsername } = req.query;
+  try {
+    const suggestions = await User.find(partialUsername);
+    res.json(suggestions);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({error: "Internal Server Error"})
+  }
+})
 
 app.get('/api/event/:id', (req, res) => {
   const { id } = req.params;

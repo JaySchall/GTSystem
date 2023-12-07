@@ -1,0 +1,21 @@
+#admin-event-controls {
+    background-color: var(--yellow);
+}
+
+#admin-event-controls a {
+    display: inline-block;
+    padding: 5px 20px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    color: #000;
+    text-align: center;
+    transition: background-color 0.2s ease;
+}
+
+#admin-event-controls a:hover {
+    background-color: #d3812a;
+}
+
+#admin-event-controls a:active {
+    background-color: #b96f20;
+}

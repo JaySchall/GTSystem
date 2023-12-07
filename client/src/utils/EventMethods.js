@@ -52,3 +52,22 @@ export function PretifyDate(start, end) {
         return `${startDateString}: ${startTimeString} to ${stopDateString}: ${stopTimeString}`;
     }
 }
+export function BracketStatus(BracketInfo) {
+    if (BracketInfo.complete) {
+        return "Completed";
+    } else if (BracketInfo.started) {
+        return "In Progress";
+    } else {
+        return "Not Started";
+    }
+}
+
+export function BracketStyle(style) {
+    if (style === "singleElimination") {
+        return "Single Elimination";
+    } else if (style === "doubleElimination") {
+        return "Double Elimination";
+    } else if (style === "roundRobin") {
+        return "Round Robin";
+    }
+}

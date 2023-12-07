@@ -6,9 +6,10 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Events from "./pages/Events";
 import FAQ from "./pages/FAQ";
-import Form from "./pages/Form";
 import EventPage from "./pages/EventPage";
-import CreateBracket from "./pages/CreateEvent.js"
+import { CreateEvent, EditEvent } from "./pages/ManageEvents.js";
+import BracketPage from "./pages/BracketPage.js"
+import CreateBracket from "./pages/CreateBracket.js";
 import ManageBracket from "./pages/ManageBracket.js"
 import Tags from './pages/Tags';
 import TagEvents from './pages/TagEvents';
@@ -29,13 +30,16 @@ function App() {
     case "/FAQ":
       component = <FAQ />
       break;
-    case "/Form":
-      component = <Form />
-      break;
     case "/Create/Event":
+      component = <CreateEvent />
+      break;
+    case "/events/:id/new-bracket":
       component = <CreateBracket />
       break;
-    case "/Events/:id/Manage":
+    case "/vents/:id/edit":
+      component = <EditEvent />
+      break;
+    case "/events/:id/bracket/:bid/edit":
       component = <ManageBracket />
       break;
     default:
@@ -59,11 +63,13 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
               <Route path="/faq" element={<FAQ />} />
-              <Route path="/form" element={<Form />} />
               <Route path="/events" element={<Events />} />
               <Route path="/events/:id" element={<EventPage />} />
-              <Route path="/create/event" element={<CreateBracket />} />
-              <Route path="/events/:id/Manage" element={<ManageBracket />} />
+              <Route path="/events/:id/edit" element={<EditEvent />} />
+              <Route path="/create/event" element={<CreateEvent />} />
+              <Route path="/events/:id/new-bracket" element={<CreateBracket />} />
+              <Route path="/events/:id/bracket/:bid" element={<BracketPage />} />
+              <Route path="/events/:id/bracket/:bid/edit" element={<ManageBracket />} />
               <Route path="/tags" element={<Tags />} />
               <Route path="/tags/:name" element={<TagEvents />} />
             </Routes>

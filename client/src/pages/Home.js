@@ -28,7 +28,7 @@ export default function Home(){
     };
 
     fetchEvents();
-  }, []); // Empty dependency array ensures the effect runs only once, similar to componentDidMount
+  }, []);
 
   return (
     <main id="main-content" className="outer-wrapper l-overflow-clear" role="main">

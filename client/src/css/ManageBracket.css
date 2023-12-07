@@ -1,0 +1,36 @@
+.suggestions-container {
+    position: relative;
+  }
+  
+  .input-container {
+    position: relative;
+  }
+  
+  /* Initially hide the suggestions */
+  .suggestions-list {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    z-index: 1;
+  }
+  
+  /* Show suggestions when the input is focused */
+  .input-container input:focus + .suggestions-list {
+    display: block;
+  }
+  
+  .suggestion-item {
+    padding: 8px;
+    cursor: pointer;
+  }
+  
+  .button-container {
+    display: inline-block;
+  }

@@ -9,7 +9,10 @@ import Tab from '@mui/material/Tab';
 import { ImageChooser } from '../utils/EventMethods';
 import { PretifyDate } from '../utils/EventMethods';
 
+import BracketPreview from '../components/bracket/BracketPreview.js'
+import AdminButtons from '../components/Admin.js'
 import '../css/EventsPage.css';
+import '../css/EventsPreview.css'
 
 function EventTabs(props) {
     const { children, value, index, ...other } = props;
@@ -47,6 +50,9 @@ function h2Helper(title) {
 export default function EventPage(){
     const { id } = useParams();
     const [eventDetails, setEventDetails] = useState({});
+    const [bracketDetails, setBracketDetails] = useState([]);
+    const [value, setValue] = React.useState(0);
+
     useEffect(() => {
         // Fetch event details based on the id parameter
         const fetchEventDetails = async () => {
@@ -64,16 +70,35 @@ export default function EventPage(){
         };
     
         fetchEventDetails();
-    }, [id]); // Re-fetch when the id parameter changes
+    }, [id]);
+
+    useEffect(() => {
+      const fetchBrackets = async () => {
+        try {
+          const response = await fetch(`/api/event/${id}/bracket`);
+          if (!response.ok) {
+            throw new Error('Failed to fetch events');
+          }
+  
+          const data = await response.json();
+          setBracketDetails(data);
+        } catch (error) {
+          console.error('Error fetching events:', error.message);
+        }
+      };
+  
+      fetchBrackets();
+    }, [id]);
     
-    const [value, setValue] = React.useState(0);
 
     const handleChange = (event, newValue) => {
       setValue(newValue);
     };
 
+
     return (
       <article>
+        <AdminButtons option="event" />
         <div id="record" style={{ minHeight: 520 + 'px' }}>
           <div id="record-info" className="node-body">
             <Tabs value={value} 
@@ -94,8 +119,12 @@ export default function EventPage(){
                 <p dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(eventDetails.description) }} />
                 <p/>
             </EventTabs>
-            <EventTabs value={value} index={1}>
-
+            <EventTabs className="bracket-list" value={value} index={1}>
+                <ul>
+                  {bracketDetails.map((brackets) => (
+                      brackets.published ? (BracketPreview(brackets)) : (null)
+                  ))}
+                </ul>
             </EventTabs>
           </div>
           <div id="record-image-metadata">

@@ -1,11 +1,13 @@
+.bracket-list .no-wrap,
 .upcoming-events-highlights .no-wrap {
   white-space: nowrap;
   display: inline-block;
   max-width: 100%;
   overflow: hidden;
-  text-overflow:ellipsis;
+  text-overflow: ellipsis;
 }
 
+.bracket-list,
 .upcoming-events-highlights {
     float: left;
     display: block;
@@ -13,11 +15,13 @@
     width: 100%
   }
   
+  .bracket-list:last-child,
   .upcoming-events-highlights:last-child {
     margin-right: 0
   }
   
   @media screen and (min-width:768px) {
+    .bracket-list,
     .upcoming-events-highlights {
         float: left;
         display: block;
@@ -31,6 +35,7 @@
   }
   
   @media screen and (min-width:1024px) {
+
     .upcoming-events-highlights.custom-view{
         width: 100%
     }
@@ -41,16 +46,18 @@
         margin-right: 2.3576515979%;
         width: 65.8807828007%;
     }
-  
+
+    .bracket-list:last-child,
     .upcoming-events-highlights:last-child {
         margin-right: 0
     }
   }
   
+  .bracket-list ul,
   .upcoming-events-highlights ul {
     line-height: 1.3rem
   }
-  
+
   .upcoming-events-highlights li {
     padding: 5px;
     border-top: 1px solid var(--purple);
@@ -59,14 +66,25 @@
     height: 80px
   }
   
+  .bracket-list li {
+    padding: 10px;
+    border-top: 1px solid var(--purple);
+    font-size: 1.4rem;
+    font-weight: bold;
+    height: 135px
+  }
+
+  .bracket-list li:last-child,
   .upcoming-events-highlights li:last-child {
     border-bottom: 1px solid var(--purple)
   }
   
+  .bracket-list li a,
   .upcoming-events-highlights li a {
     color: var(--violet)
   }
   
+  .bracket-list li a:hover,
   .upcoming-events-highlights li a:hover * {
     color: var(--orange)
   }
@@ -74,7 +92,7 @@
   .upcoming-events-highlights img {
     max-height: 40px;
   }
-  
+
   .highlight-type {
     font-size: .75rem;
     font-weight: 400;
@@ -84,16 +102,58 @@
   .highlight-left {
     float: left;
     display: block;
-    width: 70%;
+    width: 57%;
   }
 
   .highlight-right {
     float: right;
     display: block;
-    width: 30%;
+    width: 25%;
     text-align: right;
   }
 
   .highlight-right p {
     font-size: 0.75rem;
+  }
+
+  .bracket-list .highlight-left {
+    float: left;
+    display:block;
+  }
+
+  .bracket-list .highlight-right {
+    float: right;
+    display: block;
+    text-align: right;
+  }
+
+  .highlight-right p {
+    font-size: 0.75rem;
+  }
+
+  .link-icon {
+    float: left;
+    display: block;
+    margin-right: 0.5rem;
+    font-size: 1rem;
+  }
+
+  .bracket-list li,
+  .bracket-list ul {
+    list-style-type: none;
+  }
+
+  .preview-sub {
+    font-weight: bold;
+    font-size: 1.1rem;
+  }
+
+  .half-br {
+    line-height:1rem;
+    font-size: 0.7rem;
+  }
+
+  .preview-text {
+    font-size: .75rem;
+    font-weight: 400;
   }
