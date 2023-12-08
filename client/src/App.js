@@ -14,6 +14,7 @@ import ManageBracket from "./pages/ManageBracket.js"
 import Tags from './pages/Tags';
 import TagEvents from './pages/TagEvents';
 import Footer from "./components/footer/Footer"
+import EventRegistration from "./pages/EventRegistration.js";
 
 function App() {
   let component
@@ -66,6 +67,7 @@ function App() {
               <Route path="/events" element={<Events />} />
               <Route path="/events/:id" element={<EventPage />} />
               <Route path="/events/:id/edit" element={<EditEvent />} />
+              <Route path="/events/:id/registration" element={<EventRegistration />} />
               <Route path="/create/event" element={<CreateEvent />} />
               <Route path="/events/:id/new-bracket" element={<CreateBracket />} />
               <Route path="/events/:id/bracket/:bid" element={<BracketPage />} />

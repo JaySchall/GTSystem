@@ -30,6 +30,7 @@ export default function BracketPage(){
     return (
         <article>
             <AdminButtons option="bracket" />
+            <a href={"/events/" + id} className="button">{"< Back"}</a>
             <div id="bracket" style={{ minHeight: 520 + 'px' }}>
                 {BracketInfo(bracketDetails)}
                 <div id="bracket-view">

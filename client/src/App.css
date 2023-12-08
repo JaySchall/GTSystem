@@ -14,36 +14,30 @@ html {
   box-sizing: inherit
 }
 
-.button {
+a.button {
+  margin: 5px 0;
+  padding: 5px 15px;
   display: inline-block;
-  border: 0;
-  color: #fff;
-  background-color: #06c;
-  margin: 0;
-  padding: 8px
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s ease;
 }
 
-.button.delete {
-  background-color: #c00
+.button {
+background-color: #342f42;
+color: #fff;
 }
 
-.button.green {
-  background-color: #e6efc2;
-  color: #333c10
+.button {
+background-color: #1f1c29;
+color: #fff;
 }
 
-.button:hover {
-  background-color: #e25a10;
-  color: #fff
-}
-
-.button[disabled] {
-  background-color: #999
-}
-
-a.button:hover,
-a.button:visited {
-  color: #fff
+.button {
+font-family: "Montserrat", sans-serif;
+font-size: 1em;
+color: #000;
+background-color: var(--yellow);
 }
 
 @media screen and (min-width:1024px) {

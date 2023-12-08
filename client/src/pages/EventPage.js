@@ -54,7 +54,6 @@ export default function EventPage(){
     const [value, setValue] = React.useState(0);
 
     useEffect(() => {
-        // Fetch event details based on the id parameter
         const fetchEventDetails = async () => {
           try {
             const response = await fetch(`/api/event/${id}`);

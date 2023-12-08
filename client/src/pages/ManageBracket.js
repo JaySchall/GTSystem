@@ -1,7 +1,5 @@
 import ManageBracketForm from "../components/forms/ManageBracket.js";
 import { useNavigate } from 'react-router-dom';
-import "../css/ManageBracket.css";
-
 
 
 export default function ManageBracket(){

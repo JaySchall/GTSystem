@@ -209,8 +209,8 @@ const CreateEventForm = (props) => {
       </label>
 
       {/* Submit Button */}
-      <button type="submit">Submit</button>
-      <button type="button" onClick={handleCancel}>Cancel</button>
+      <button className="button" type="submit">Submit</button>
+      <button className="button" type="button" onClick={handleCancel}>Cancel</button>
       <br/>
     </form>
   );

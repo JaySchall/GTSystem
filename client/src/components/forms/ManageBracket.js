@@ -180,8 +180,8 @@ const ManageBracketForm = (props) => {
         </label>
 
         <div>
-          <button type="submit">Save</button>
-          <button type="submit">Cancel</button>
+          <button className="button" type="submit">Save</button>
+          <button className="button" type="submit">Cancel</button>
         </div>
       </form>
       <br/>
