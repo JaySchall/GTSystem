@@ -11,6 +11,7 @@ import EventPage from "./pages/EventPage";
 import CreateBracket from "./pages/CreateEvent.js"
 import ManageBracket from "./pages/ManageBracket.js"
 import Tags from './pages/Tags';
+import Login from './pages/Login'
 import TagEvents from './pages/TagEvents';
 import Footer from "./components/footer/Footer"
 
@@ -34,6 +35,9 @@ function App() {
       break;
     case "/Create/Event":
       component = <CreateBracket />
+      break;
+    case "/User/Login":
+      component = <Login />
       break;
     case "/Events/:id/Manage":
       component = <ManageBracket />
@@ -63,6 +67,7 @@ function App() {
               <Route path="/events" element={<Events />} />
               <Route path="/events/:id" element={<EventPage />} />
               <Route path="/create/event" element={<CreateBracket />} />
+              <Route path="/user/login" element={<Login />} />
               <Route path="/events/:id/Manage" element={<ManageBracket />} />
               <Route path="/tags" element={<Tags />} />
               <Route path="/tags/:name" element={<TagEvents />} />

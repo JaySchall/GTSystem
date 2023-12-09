@@ -2,21 +2,26 @@ const express = require('express');
 const cors = require('cors');
 const sqlite3 = require('sqlite3').verbose();
 
+
 const app = express();
 const port = process.env.PORT || 8080;
 app.use(cors());
 app.use(express.json()) //For JSON requests
 app.use(express.urlencoded({ extended: true }));
 
+
 const db = new sqlite3.Database('tournament.db');
+
 
 app.get("/api", (req, res) => {
   res.json({ message: "Hello from server!" });
 });
 
+
 // INSERT EVENT CALL
 app.post('/api/create-event', (req, res) => {
   const { name, location, startTime, endTime, description, game, tags } = req.body;
+
 
   // Insert data into the events table
   db.run(
@@ -26,8 +31,9 @@ app.post('/api/create-event', (req, res) => {
       if (err) {
         console.error('Error inserting event data:', err);
         res.status(500).json({ error: 'Internal Server Error' });
-      } 
+      }
       const eventId = this.lastID;
+
 
       // Insert tags
       tags.forEach(tag => {
@@ -37,9 +43,11 @@ app.post('/api/create-event', (req, res) => {
             return res.status(500).json({ error: 'Internal Server Error' });
           }
 
+
           if (row) {
             // Tag already exists, use the existing tag ID
             const tagId = row.id;
+
 
             // Insert the relationship into the 'event_tags' table
             db.run('INSERT INTO event_tags (event_id, tag_id) VALUES (?, ?)', [eventId, tagId], function (err) {
@@ -56,7 +64,9 @@ app.post('/api/create-event', (req, res) => {
                 return res.status(500).json({ error: 'Internal Server Error' });
               }
 
+
               const tagId = this.lastID;
+
 
               // Insert the relationship into the 'event_tags' table
               db.run('INSERT INTO event_tags (event_id, tag_id) VALUES (?, ?)', [eventId, tagId], function (err) {
@@ -69,9 +79,10 @@ app.post('/api/create-event', (req, res) => {
           }
         });
 
+
       });
-      
-      res.status(200).json({ 
+     
+      res.status(200).json({
         message: 'Event created successfully',
         id: eventId,
       });
@@ -79,12 +90,16 @@ app.post('/api/create-event', (req, res) => {
   );
 });
 
+
 // INSERT BRACKET CALL
+
 
 // MODIFY BRACKET CALL
 
+
 app.get('/api/event/:id', (req, res) => {
   const { id } = req.params;
+
 
   // Fetch event details with tags from the database based on the provided ID
   db.get('SELECT e.*, GROUP_CONCAT(t.name) AS tags FROM events e ' +
@@ -104,6 +119,7 @@ app.get('/api/event/:id', (req, res) => {
     });
 });
 
+
 app.get('/api/get-events', (req, res) => {
   db.all('SELECT * FROM events', (err, rows) => {
     if (err) {
@@ -114,6 +130,7 @@ app.get('/api/get-events', (req, res) => {
     }
   });
 });
+
 
 app.get('/api/tags', (req, res) => {
   // Fetch all tags from the database
@@ -127,11 +144,14 @@ app.get('/api/tags', (req, res) => {
   });
 });
 
+
 app.get('/api/events-by-tag/:tag', (req, res) => {
   const { tag } = req.params;
 
+
   const originalTagName = tag.replace(/[-_]/g, ' ');  // Fix here
   // Fetch events by tag from the database
+
 
   db.all('SELECT e.* FROM events e ' +
     'JOIN event_tags et ON e.id = et.event_id ' +
@@ -145,6 +165,47 @@ app.get('/api/events-by-tag/:tag', (req, res) => {
       }
     });
 });
+
+
+// check if a username and password is valid
+app.post('/api/check-credentials', (req, res) => {
+  const { username, password } = req.body;
+
+
+  db.get('SELECT * FROM users WHERE username = ? AND hashed_password = ?', [username, password], (err, row) => {
+   
+    if (err) {
+      res.status(500).json({ success: false, message: 'Error checking credentials' });
+    } else if (row) {
+      res.status(200).json({ valid: true });
+    } else {
+      res.status(401).json({ valid: false });
+    }
+  });
+});
+
+// inserting newly registered player
+app.post('/api/register', (req, res) => {
+  const { username, password } = req.body;
+
+   db.get('SELECT * FROM users WHERE username = ?', [username], (err, row) => {
+    if (err) {
+      res.status(500).json({ success: false, message: 'Error checking username' });
+    } else if (row) {
+      res.status(409).json({ success: false, message: 'Username already exists' });
+    } else {
+      // Insert the new user into the database
+      db.run('INSERT INTO users (username, hashed_password) VALUES (?, ?)', [username, password], (err) => {
+        if (err) {
+          res.status(500).json({ success: false, message: 'Error registering user' });
+        } else {
+          res.status(200).json({ success: true, message: 'Registration successful' });
+        }
+      });
+    }
+  });
+});
+
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
