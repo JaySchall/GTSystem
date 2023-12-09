@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const sqlite3 = require('sqlite3').verbose();
 
+const Tournament = require('./tournament/tournament_core.js')
+
 const app = express();
 const port = process.env.PORT || 8080;
 app.use(cors());
@@ -10,6 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 
 const db = new sqlite3.Database('tournament.db');
 
+const tournaments = {}
 
 /***********************************************
  * ⊦─────────── Helper Functions ───────────˧
@@ -56,6 +59,18 @@ function getParticipants(eventId, bracketId) {
   });
 }
 
+function getRegistrants(event_id) {
+  return new Promise((resolve, reject) => {
+    db.all('SELECT * FROM registered WHERE event_id=?', [event_id], (err, playerRows) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(playerRows);
+      }
+    });
+  });
+}
+
 function deleteBracket(bid) {
   return new Promise((resolve, reject) => {
     db.run('DELETE FROM matches WHERE bracket_id=?', [bid], (err) => {
@@ -86,6 +101,47 @@ function insertPlayerAndRegister(name, event_id) {
         resolve(this.lastID);
       }
     });
+  });
+}
+
+async function loadBracket(bracket_id) {
+  return new Promise((resolve, reject) => {
+    db.get('SELECT * FROM brackets WHERE id=?', [bracket_id], (err, row) => {
+      if (err) {
+        reject(err);
+      } else {
+        if (row) {
+          db.all('SELECT * FROM participants WHERE bracket_id = ? ORDER BY seed',
+          [bracket_id], (err, rows) => {
+            if (err) {
+              reject(err);
+            } else {
+              let loadedBracket = new Tournament(id=BracketId, style=row.style, 
+                participants=rows);
+              loadedBracket.bracket.players_per_station = row.players_per_station;
+              loadedBracket.bracket.players_move_on = row.players_move_on;
+              loadedBracket.bracket.third_place_match = Boolean(row.third_place_match);
+              loadedBracket.bracket.seeded = Boolean(row.seeded);
+              loadedBracket.bracket.started = Boolean(row.started);
+              loadedBracket.bracket.completed = Boolean(row.completed);
+              db.all('SELECT * FROM matches WHERE bracket_id = ? ORDER BY id',
+              [bracket_id], (err, new_rows) => {
+                if (err) {
+                  reject(err);
+                } else {
+                  new_rows.forEach((value) => {
+                    loadedBracket.loadMatch(value);
+                  })
+                  resolve(loadedBracket);
+                }
+              })
+            }
+          });
+        } else {
+          resolve(null);
+        }
+      }
+    })
   });
 }
 
@@ -438,6 +494,43 @@ app.post('/api/update-match', (req, res) => {
   const { matchid, bracketid, results } = req.body;
 });
 
+// GENERATE A BRACKET
+app.post('/api/generate-bracket', async (req, res) => {
+  const { bracket_id } = req.body;
+  try {
+    let tournament = await loadBracket(bracket_id)
+    if (tournament.bracket.seeded) {
+      tournament.generateSeededBracket();
+    } else {
+      tournament.generateRandomBracket();
+    }
+    tournament.bracket.matches.forEach((value, index) => {
+      match_vals = tournament.exportMatch(value, index);
+      db.run("INSERT INTO matches (id, bracket_id, players, next_matches, " +
+      "scores, is_bye, is_started, is_done) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+      [match_vals.id, bracket_id, match_vals.players, match_vals.next_matches, 
+        match_vals.scores, match_vals.is_bye, match_vals.is_started, 
+        match_vals.is_done], 
+        function (err) {
+          console.error('Error generating bracket:', err);
+          res.status(500).json({ error: 'Internal Server Error' });
+        });
+    });
+    db.all('SELECT * FROM matches WHERE bracket_id = ? ORDER BY id',
+    [bracket_id], (err, rows) => {
+      if (err) {
+        console.error('Error generating bracket:', err);
+        res.status(500).json({ error: 'Internal Server Error' });
+      } else {
+        res.status(200).json(rows)
+      }
+    })
+  } catch (err) {
+    console.error('Error generating bracket:', err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+
+});
 
 /***********************************************
  * ⊦───────────────── Tags ─────────────────˧
@@ -460,11 +553,6 @@ app.get('/api/tags', (req, res) => {
 /***********************************************
  * ⊦──────────────── Users ─────────────────˧
  ***********************************************/
-
-// DQ PLAYER
-app.post('/api/dq-player', (req, res) => {
-  const { playerid, eventid } = req.body;
-});
 
 // REGISTER A SINGLE PLAYER
 app.post('/api/register-player', async(req, res) => {
@@ -544,6 +632,7 @@ app.get('/api/registrants/:id', (req, res) => {
   });
 });
 
+// CHECKIN AND DROP REGISTRANT
 app.post('/api/update-event-registration', (req, res) => {
   const { id, action, value, event_id } = req.body;
   const options = ["checkin", "drop"];
@@ -570,6 +659,20 @@ app.post('/api/update-event-registration', (req, res) => {
         res.status(200).json({})
       }
     })
+  }
+});
+
+// GET REGISTRANTS AND PARTICIPANTS
+app.get('api/get-participants', async (req, res) => {
+  const { bracket_id, event_id } = req.body;
+  let data = {};
+  try {
+    data.participants = await getParticipants(event_id, bracket_id);
+    data.registered = await getRegistrants(event_id);
+    res.status(200).json({ data })
+  } catch (err) {
+    console.error('Error getting participants:', err);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
