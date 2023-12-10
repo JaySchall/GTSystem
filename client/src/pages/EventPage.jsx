@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import DOMPurify from 'dompurify';
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import PropTypes from "prop-types";
+import DOMPurify from "dompurify";
 
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
 
-import { ImageChooser } from '../utils/EventMethods';
-import { PretifyDate } from '../utils/EventMethods';
+import { ImageChooser } from "../utils/EventMethods";
+import { PretifyDate } from "../utils/EventMethods";
 
 import BracketPreview from '../components/bracket/BracketPreview'
 import AdminButtons from '../components/Admin'
@@ -15,17 +15,19 @@ import '../css/EventsPage.css';
 import '../css/EventsPreview.css'
 
 function EventTabs(props) {
-    const { children, value, index, ...other } = props;
+  const { children, value, index, ...other } = props;
 
-    return (
-      <div role="tabpanel" hidden={value!== index}
-        id={`simple-tabbedpanel-${index}`}
-        aria-labelledby={`simple-tab-${index}`}
-        {...other}
-      >
-        {value === index ? children : null}
-      </div>
-    );
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabbedpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index ? children : null}
+    </div>
+  );
 }
 
 EventTabs.propTypes = {
@@ -35,30 +37,26 @@ EventTabs.propTypes = {
 };
 
 function PropsHelper(index) {
-    return {
-      id: `simple-tab-${index} event-tab-button`,
-      'aria-controls': `simple-tabpanel-${index}`,
-    };
+  return {
+    id: `simple-tab-${index} event-tab-button`,
+    "aria-controls": `simple-tabpanel-${index}`,
+  };
 }
 
 function h2Helper(title) {
-    return (
-      <h2 className="no-margin">{title}</h2>
-    )
+  return <h2 className="no-margin">{title}</h2>;
 }
 
-export default function EventPage(){
+export default function EventPage() {
     const { id } = useParams();
     const [eventDetails, setEventDetails] = useState({});
-    const [bracketDetails, setBracketDetails] = useState([]);
-    const [value, setValue] = React.useState(0);
-
     useEffect(() => {
+        // Fetch event details based on the id parameter
         const fetchEventDetails = async () => {
           try {
             const response = await fetch(`http://localhost:8080/api/event/${id}`);
             if (!response.ok) {
-              console.log(response)
+              console.log(response);
               throw new Error('Failed to fetch event details');
             }
     
@@ -70,26 +68,9 @@ export default function EventPage(){
         };
     
         fetchEventDetails();
-    }, [id]);
-
-    useEffect(() => {
-      const fetchBrackets = async () => {
-        try {
-          const response = await fetch(`/api/event/${id}/bracket`);
-          if (!response.ok) {
-            throw new Error('Failed to fetch events');
-          }
-  
-          const data = await response.json();
-          setBracketDetails(data);
-        } catch (error) {
-          console.error('Error fetching events:', error.message);
-        }
-      };
-  
-      fetchBrackets();
-    }, [id]);
+    }, [id]); // Re-fetch when the id parameter changes
     
+    const [value, setValue] = React.useState(0);
 
     const handleChange = (event, newValue) => {
       setValue(newValue);
@@ -140,9 +121,9 @@ export default function EventPage(){
                 <a href={`/tags/${encodeURIComponent(tag.replace(/\s+/g, '-'))}`}>{tag}</a>
               </React.Fragment>
               ))}
-            </p>
-          </div>
+          </p>
         </div>
-      </article>
-    );
+      </div>
+    </article>
+  );
 }

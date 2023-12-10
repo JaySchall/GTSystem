@@ -69,10 +69,10 @@ const LoginForm = () => {
         body: JSON.stringify({ username: loginUsername, password: loginPassword})
       });
 
-      const data = await response.json();
-
-      if (data.valid) {
+      if (response.ok) {
         alert('Login successful');
+        const userData = await response.json();
+        login(userData);
       } else {
         alert('Invalid username or password');
       }

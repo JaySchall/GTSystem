@@ -1,6 +1,6 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import ""./App.css";
 import Header from "./components/header/Header";
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -10,44 +10,44 @@ import EventPage from "./pages/EventPage";
 import { CreateEvent, EditEvent } from "./pages/ManageEvents";
 import BracketPage from "./pages/BracketPage"
 import CreateBracket from "./pages/CreateBracket";
-import ManageBracket from "./pages/ManageBracket"
-import Tags from './pages/Tags';
-import Login from './pages/Login'
-import TagEvents from './pages/TagEvents';
-import Footer from "./components/footer/Footer"
+import ManageBracket from "./pages/ManageBracket";
+import Tags from "./pages/Tags";
+import Login from "./pages/Login";
+import TagEvents from "./pages/TagEvents";
+import Footer from "./components/footer/Footer";
 import EventRegistration from "./pages/EventRegistration";
 import BracketRegistration from "./pages/BracketRegistration";
 import AuthProvider from "./components/AuthContext.jsx";
+import ProtectedLoginRoute from "./components/ProtectedLoginRoute.jsx";
 
 function App() {
-  let component
+  let component;
   switch (window.location.pathname) {
     case "/":
-      component = <Home />
+      component = <Home />;
       break;
     case "/About":
-      component = <About />
+      component = <About />;
       break;
     case "/Events":
-      component = <Events />
+      component = <Events />;
       break;
     case "/FAQ":
-      component = <FAQ />
+      component = <FAQ />;
       break;
     case "/Create/Event":
-      component = <CreateEvent />
-      break;
-    case "/events/:id/new-bracket":
-      component = <CreateBracket />
+      component = <CreateBracket />;
       break;
     case "/User/Login":
-      component = <Login />
+      component = <Login />;
       break;
-    case "/vents/:id/edit":
-      component = <EditEvent />
+    case "/Events/:id/Manage":
+      component = <ManageBracket />;
+    case "/events/:id/edit":
+      component = <EditEvent />;
       break;
     case "/events/:id/bracket/:bid/edit":
-      component = <ManageBracket />
+      component = <ManageBracket />;
       break;
     default:
       break;
@@ -63,30 +63,42 @@ function App() {
   return (
     
     <Router>
-      <div className="page outer-wrapper" role="document"> 
-        <Header/>
-          <main id="main-content" className="outer-wrapper l-overflow-clear" role="main">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/faq" element={<FAQ />} />
-              <Route path="/events" element={<Events />} />
-              <Route path="/events/:id" element={<EventPage />} />
-              <Route path="/events/:id/edit" element={<EditEvent />} />
-              <Route path="/events/:id/registration" element={<EventRegistration />} />
-              <Route path="/create/event" element={<CreateEvent />} />
-              <Route path="/events/:id/new-bracket" element={<CreateBracket />} />
-              <Route path="/user/login" element={<Login />} />
-              <Route path="/events/:id/bracket/:bid" element={<BracketPage />} />
-              <Route path="/events/:id/bracket/:bid/registration" element={<BracketRegistration />} />
-              <Route path="/events/:id/bracket/:bid/edit" element={<ManageBracket />} />
-              <Route path="/tags" element={<Tags />} />
-              <Route path="/tags/:name" element={<TagEvents />} />
-            </Routes>
-          </main>
-        <Footer/>
-      </div>
-      
+      <AuthProvider>
+        <div className="page outer-wrapper" role="document"> 
+          <Header/>
+            <main 
+              id="main-content" 
+              className="outer-wrapper l-overflow-clear" 
+              role="main"
+            >
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/faq" element={<FAQ />} />
+                <Route path="/events" element={<Events />} />
+                <Route path="/events/:id" element={<EventPage />} />
+                <Route path="/events/:id/edit" element={<EditEvent />} />
+                <Route path="/events/:id/registration" element={<EventRegistration />} />
+                <Route path="/create/event" element={<CreateEvent />} />
+                <Route path="/events/:id/new-bracket" element={<CreateBracket />} />
+                <Route
+                  path="/user/login"
+                  element={
+                    <ProtectedLoginRoute>
+                      <Login />
+                    </ProtectedLoginRoute>
+                  }
+                />
+                <Route path="/events/:id/bracket/:bid" element={<BracketPage />} />
+                <Route path="/events/:id/bracket/:bid/registration" element={<BracketRegistration />} />
+                <Route path="/events/:id/bracket/:bid/edit" element={<ManageBracket />} />
+                <Route path="/tags" element={<Tags />} />
+                <Route path="/tags/:name" element={<TagEvents />} />
+              </Routes>
+            </main>
+          <Footer />
+        </div>
+      </AuthProvider>
     </Router>
   );
 }
