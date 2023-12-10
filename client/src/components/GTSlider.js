@@ -4,6 +4,10 @@ import { SliderHelper } from '../utils/Slide';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import BLM from '../img/carousel/BLM_carousel.png';
+import Seed from '../img/carousel/Seed_Sampler_Carousel.png';
+import Tiny from '../img/carousel/TinyExpo_Carousel.png';
+import Wapur from '../img/carousel/WAPUR2023_Carousel.jpg';
 
 const PrevArrow = ({ currentSlide, slideCount, ...props }) => (
   <div {...props}
@@ -46,10 +50,19 @@ export default class GTSlider extends Component {
 
     return (
       <Slider className="image-slider" {...settings} >
-        <h1>1</h1>
-        <h1>2</h1>
-        <h1>3</h1>
-        <h1>4</h1>
+        <a href="https://aadl.org/blacklivesmatter">
+        <img src={BLM} alt="BLM" />
+        </a>
+        
+        <a href="https://aadl.org/node/621838">
+        <img src={Seed} alt="Seed" />
+        </a>
+        <a href="https://aadl.org/seedsampler">
+        <img src={Tiny} alt="Tiny" />
+        </a>
+        <a href="https://aadl.org/tinyexpo">
+        <img src={Wapur} alt="Wapur" />
+        </a>
       </Slider>
     );
   };
