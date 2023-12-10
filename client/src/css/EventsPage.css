@@ -37,53 +37,6 @@
     }
 }
 
-#record a:visited {
-    color: #848
-}
-
-#record-overview {
-    float: left;
-    display: block;
-    margin-right: 7.4229703521%;
-    width: 100%
-}
-
-#record-overview:last-child {
-    margin-right: 0
-}
-
-#record-overview #record-overview-data {
-    float: left;
-    display: block;
-    margin-right: 7.4229703521%;
-    width: 59.716386118%
-}
-
-#record-overview #record-overview-data:last-child {
-    margin-right: 0
-}
-
-@media screen and (min-width:768px) {
-    #record-overview #record-overview-data {
-        width: 100%
-    }
-}
-
-#record-overview #record-overview-img {
-    float: left;
-    display: block;
-    margin-right: 7.4229703521%;
-    width: 32.86064353%
-}
-
-#record-overview #record-overview-img:last-child {
-    margin-right: 0
-}
-
-#record-overview-data span:not(.sg-record-code) {
-    display: block
-}
-
 #record-info {
     float: left;
     display: block;
@@ -121,11 +74,6 @@
     #record-info:last-child {
         margin-right: 0
     }
-}
-
-#record-author {
-    font-size: 1.3rem;
-    margin-bottom: .75em
 }
 
 #record-image-metadata {
@@ -204,46 +152,6 @@
     height: 45px;
     margin-bottom: 0;
     padding: 10px
-}
-
-#record-extra-info {
-    float: left;
-    display: block;
-    margin-right: 7.4229703521%;
-    width: 100%
-}
-
-#record-extra-info:last-child {
-    margin-right: 0
-}
-
-#record-copies-table .magazine-request div {
-    width: 80%;
-    position: relative
-}
-
-#record-copies-table .record-request {
-    margin: 0
-}
-
-#record-copies-table .no-mobile-display {
-    display: none
-}
-
-@media screen and (min-width:768px) {
-    #record-copies-table .no-mobile-display {
-        display: table-cell
-    }
-}
-
-#record-copies-table .no-tab-display {
-    display: none
-}
-
-@media screen and (min-width:1024px) {
-    #record-copies-table .no-tab-display {
-        display: table-cell
-    }
 }
 
 button #event-tab-button {

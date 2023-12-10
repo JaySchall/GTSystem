@@ -1,0 +1,128 @@
+#bracket {
+    position: relative;
+    float: left;
+    display: block;
+    margin-right: 7.4229703521%;
+    width: 100%;
+    margin-top: 1.5em
+}
+
+#bracket:last-child {
+    margin-right: 0
+}
+
+@media screen and (min-width:768px) {
+    #bracket {
+        float: left;
+        display: block;
+        margin-right: 3.5786636068%;
+        width: 100%
+    }
+
+    #bracket:last-child {
+        margin-right: 0
+    }
+}
+
+@media screen and (min-width:1024px) {
+    #bracket {
+        float: left;
+        display: block;
+        margin-right: 2.3576515979%;
+        width: 100%
+    }
+
+    #bracket:last-child {
+        margin-right: 0
+    }
+}
+
+#bracket-view {
+    float: left;
+    display: block;
+    margin-right: 7.4229703521%;
+    width: 100%;
+    min-height: 520px;
+}
+
+#bracket-view:last-child {
+    margin-right: 0
+}
+
+@media screen and (min-width:768px) {
+    #bracket-view {
+        float: left;
+        display: block;
+        margin-right: 3.5786636068%;
+        width: 61.1580011475%;
+        margin-left: 38.8419988525%
+    }
+
+    #bracket-view:last-child {
+        margin-right: 0
+    }
+}
+
+@media screen and (min-width:1024px) {
+    #bracket-view {
+        float: left;
+        display: block;
+        margin-right: 2.3576515979%;
+        width: 74.4105871005%;
+        margin-left: 25.5894128995%
+    }
+
+    #bracket-view:last-child {
+        margin-right: 0
+    }
+}
+
+#bracket-info {
+    background-color: #f5f5f5;
+    padding: 20px;
+    float: left;
+    display: block;
+    margin-right: 7.4229703521%;
+    width: 100%
+}
+
+#bracket-info:last-child {
+    margin-right: 0
+}
+
+#bracket-info h1 {
+    margin-top: 0;
+}
+
+@media screen and (min-width:768px) {
+    #bracket-info {
+        position: absolute;
+        left: 0;
+        float: left;
+        display: block;
+        margin-right: 3.5786636068%;
+        width: 35.2633352458%
+    }
+
+    #bracket-info:last-child {
+        margin-right: 0
+    }
+}
+
+@media screen and (min-width:1024px) {
+    #bracket-info {
+        float: left;
+        display: block;
+        margin-right: 2.3576515979%;
+        width: 23.2317613015%
+    }
+
+    #bracket-info:last-child {
+        margin-right: 0
+    }
+}
+
+#participants-container {
+    max-height: 400px;
+    overflow-y: auto;
+}
