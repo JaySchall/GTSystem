@@ -520,7 +520,7 @@ body.two-sidebars main section#content:last-child {
 
 .l-overflow-clear {
   overflow: hidden;
-  margin-bottom: 30px
+  margin-bottom: 30px;
 }
 
 .l-float-r {
