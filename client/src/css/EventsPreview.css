@@ -45,6 +45,11 @@
     .upcoming-events-highlights:last-child {
         margin-right: 0
     }
+
+    .highlight-box {
+      width: 29.8%;
+    float: right;
+    }
   }
   
   .upcoming-events-highlights ul {
@@ -96,4 +101,13 @@
 
   .highlight-right p {
     font-size: 0.75rem;
+  }
+
+
+  .highlights {
+    border-top: 1px solid #000;
+  }
+  .highlights a{
+    color: black;
+    transition: color 150ms ease;
   }

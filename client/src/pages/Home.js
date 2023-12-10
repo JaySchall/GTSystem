@@ -47,9 +47,7 @@ export default function Home(){
           <h1 className="light-heading">FEATURES</h1>
           <GTSlider/>
           </div>
-          <div>
-          <div>
-    </div>
+          <div className='highlight-box'>
           <h1>News & Event Highlights</h1>
           <ul>
             {highlights.map((highlight, index) => (
