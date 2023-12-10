@@ -1,5 +1,5 @@
-import { ImageChooser } from '../utils/EventMethods';
-import { PretifyDate } from '../utils/EventMethods';
+import { ImageChooser } from "../utils/EventMethods";
+import { PretifyDate } from "../utils/EventMethods";
 
 export default function EventPreview(eventInfo){
     return(

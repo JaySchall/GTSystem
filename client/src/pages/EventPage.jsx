@@ -9,10 +9,10 @@ import Tab from "@mui/material/Tab";
 import { ImageChooser } from "../utils/EventMethods";
 import { PretifyDate } from "../utils/EventMethods";
 
-import BracketPreview from '../components/bracket/BracketPreview'
-import AdminButtons from '../components/Admin'
-import '../css/EventsPage.css';
-import '../css/EventsPreview.css'
+import BracketPreview from "../components/bracket/BracketPreview"
+import AdminButtons from "../components/Admin"
+import "../css/EventsPage.css";
+import "../css/EventsPreview.css"
 
 function EventTabs(props) {
   const { children, value, index, ...other } = props;
@@ -57,13 +57,13 @@ export default function EventPage() {
             const response = await fetch(`http://localhost:8080/api/event/${id}`);
             if (!response.ok) {
               console.log(response);
-              throw new Error('Failed to fetch event details');
+              throw new Error("Failed to fetch event details");
             }
     
             const data = await response.json();
             setEventDetails(data);
           } catch (error) {
-            console.error('Error fetching event details:', error.message);
+            console.error("Error fetching event details:", error.message);
           }
         };
     
@@ -80,7 +80,7 @@ export default function EventPage() {
     return (
       <article>
         <AdminButtons option="event" />
-        <div id="record" style={{ minHeight: 520 + 'px' }}>
+        <div id="record" style={{ minHeight: 520 + "px" }}>
           <div id="record-info" className="node-body">
             <Tabs value={value} 
               onChange={handleChange} 
@@ -115,10 +115,10 @@ export default function EventPage() {
             </div>
             <p>
               <b>Tags</b>
-              {eventDetails.tags && eventDetails.tags.split(',').map((tag, index) => (
+              {eventDetails.tags && eventDetails.tags.split(",").map((tag, index) => (
               <React.Fragment key={index}>
                 <br />
-                <a href={`/tags/${encodeURIComponent(tag.replace(/\s+/g, '-'))}`}>{tag}</a>
+                <a href={`/tags/${encodeURIComponent(tag.replace(/\s+/g, "-"))}`}>{tag}</a>
               </React.Fragment>
               ))}
           </p>

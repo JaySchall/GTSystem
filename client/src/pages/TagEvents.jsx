@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import EventPreview from '../components/EventPreview';
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import EventPreview from "../components/EventPreview";
 
 export default function TagEvents() {
     const { name } = useParams();
@@ -12,13 +12,13 @@ export default function TagEvents() {
             try {
                 const response = await fetch(`/api/events-by-tag/${name}`);
                 if (!response.ok) {
-                    throw new Error('Failed to fetch events by tag');
+                    throw new Error("Failed to fetch events by tag");
                 }
 
                 const data = await response.json();
                 setEvents(data);
             } catch (error) {
-                console.error('Error fetching events by tag:', error.message);
+                console.error("Error fetching events by tag:", error.message);
             }
         };
 
@@ -26,7 +26,7 @@ export default function TagEvents() {
     }, [name]);
 
     return (
-        <div className='upcoming-events-highlights custom-view'>
+        <div className="upcoming-events-highlights custom-view">
           <h1>Events with Tag: {name}</h1>
             <ul>
               {events.map((event) => (

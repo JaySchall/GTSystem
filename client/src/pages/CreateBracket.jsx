@@ -1,27 +1,27 @@
 import ManageBracketForm from "../components/forms/ManageBracket"
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 export default function CreateBracket(){
     const navigate = useNavigate();
     const handleCreateSubmit = async (formData, event_id, bracket_id) => {
         formData.eventid = event_id;
         try {
-            const response = await fetch('/api/create-bracket', {
-              method: 'POST',
+            const response = await fetch("/api/create-bracket", {
+              method: "POST",
               headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
               },
               body: JSON.stringify(formData),
             });
       
             if (!response.ok) {
-              throw new Error('Failed to create bracket');
+              throw new Error("Failed to create bracket");
             }
       
             const responseData = await response.json();
             navigate(`/Events/${event_id}/bracket/${responseData.id}`);
          } catch (error) {
-            console.error('Error creating event:', error.message);
+            console.error("Error creating event:", error.message);
         }
     }
 

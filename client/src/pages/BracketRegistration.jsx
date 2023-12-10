@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from 'react-router-dom';
-import { ParticipantPlayer, RegisteredPlayer } from '../components/ParticipantItems';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useParams } from "react-router-dom";
+import { ParticipantPlayer, RegisteredPlayer } from "../components/ParticipantItems";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRefresh, faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
 
 import "../css/BracketRegistration.css"
@@ -16,7 +16,7 @@ export default function BracketRegistration(){
         try {
           const response = await fetch(`/api/get-participants/${id}/${bid}`);
           if (!response.ok) {
-            throw new Error('Failed to fetch registration details');
+            throw new Error("Failed to fetch registration details");
           }
           const data = await response.json();
           setPlayerData(data);
@@ -41,7 +41,7 @@ export default function BracketRegistration(){
             setRegistered([]);
           }
         } catch (error) {
-          console.error('Error fetching registration details:', error.message);
+          console.error("Error fetching registration details:", error.message);
         }
       };
 
@@ -59,10 +59,10 @@ export default function BracketRegistration(){
         players_list.push({id: participants[i][0], seed:i});
       }
       try {
-        const response = await fetch('/api/set-participants', {
-          method: 'POST',
+        const response = await fetch("/api/set-participants", {
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({
             event_id: id, 
@@ -72,10 +72,10 @@ export default function BracketRegistration(){
         });
   
         if (!response.ok) {
-          throw new Error('Failed to update participants');
+          throw new Error("Failed to update participants");
         }
     } catch (error) {
-        console.error('Error setting participants:', error.message);
+        console.error("Error setting participants:", error.message);
     }
     }
 

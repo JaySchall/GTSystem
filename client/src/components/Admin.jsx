@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import ConfirmModal from "./Modal.jsx"
 
-import '../css/Admin.css'
+import "../css/Admin.css"
 
 export default function AdminButtons(props){
     const { id, bid=null } = useParams();
@@ -22,44 +22,44 @@ export default function AdminButtons(props){
 
     const handleConfirmEventDelete = async () => {
         try {
-            const response = await fetch('/api/delete-event/', {
-            method: 'POST',
+            const response = await fetch("/api/delete-event/", {
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
             },
             body: JSON.stringify({id:id}),
             });
     
             if (!response.ok) {
-                throw new Error('Failed to delete event');
+                throw new Error("Failed to delete event");
             }
     
             await response.json();
             navigate(`/`);
         } catch (error) {
-            console.error('Error deleting event event:', error.message);
+            console.error("Error deleting event event:", error.message);
         }
         setIsModalOpen(false);
     };
 
     const handleConfirmBracketDelete = async () => {
         try {
-            const response = await fetch('/api/delete-bracket/', {
-            method: 'POST',
+            const response = await fetch("/api/delete-bracket/", {
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
             },
             body: JSON.stringify({bid:bid}),
             });
     
             if (!response.ok) {
-            throw new Error('Failed to delete bracket');
+            throw new Error("Failed to delete bracket");
             }
     
             await response.json();
             navigate(`/`);
         } catch (error) {
-            console.error('Error deleting bracket event:', error.message);
+            console.error("Error deleting bracket event:", error.message);
         }
         setIsModalOpen(false);
     };

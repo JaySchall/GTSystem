@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 const whereOptionsList = [
     "265 Parkland Plaza",
@@ -48,18 +48,18 @@ const CreateEventForm = (props) => {
   const navigate = useNavigate();
   const { form_type, onSubmit } = props;
   const { id } = useParams();
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
   const [whereOptions, setWhereOptions] = useState(
     whereOptionsList.reduce((options, option) => {
         options[option] = false;
         return options;
     }, {})
   );
-  const [startTime, setStartTime] = useState('');
-  const [endTime, setEndTime] = useState('');
-  const [game, setGame] = useState('');
-  const [tags, setTags] = useState('');
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
+  const [game, setGame] = useState("");
+  const [tags, setTags] = useState("");
 
   // Function to handle form submission
   const handleSubmit = async (e) => {
@@ -68,7 +68,7 @@ const CreateEventForm = (props) => {
     var trueLocations = Object.keys(whereOptions).filter(function(key) {
       return whereOptions[key] === true;
     });
-    var locations = trueLocations.join(', ');
+    var locations = trueLocations.join(", ");
     var startDate = new Date(startTime);
     var endDate = new Date(endTime);
 
@@ -90,7 +90,7 @@ const CreateEventForm = (props) => {
       try {
         const response = await fetch(`/api/event/${id}`);
         if (!response.ok) {
-          throw new Error('Failed to fetch event details');
+          throw new Error("Failed to fetch event details");
         }
         const data = await response.json();
         setDescription(data.description);
@@ -108,10 +108,10 @@ const CreateEventForm = (props) => {
           return updatedOptions;
         });
       } catch (error) {
-        console.error('Error fetching event details:', error.message);
+        console.error("Error fetching event details:", error.message);
       }
     };
-    if (form_type === 'edit' && id) {
+    if (form_type === "edit" && id) {
       fetchData();
     }
   }, [form_type, id]);

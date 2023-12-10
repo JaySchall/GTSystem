@@ -1,8 +1,8 @@
-import mk8d from '../img/games/mariokart8deluxe.jpg';
-import ssbu from '../img/games/ssbu.jpg';
-import splatoon3 from '../img/games/splatoon3.jpeg';
-import gamecube from '../img/games/gamecube.png';
-import unknownImage from '../img/games/meeting.png';
+import mk8d from "../img/games/mariokart8deluxe.jpg";
+import ssbu from "../img/games/ssbu.jpg";
+import splatoon3 from "../img/games/splatoon3.jpeg";
+import gamecube from "../img/games/gamecube.png";
+import unknownImage from "../img/games/meeting.png";
 
 import "../css/EventsPreview.css"
 
@@ -29,13 +29,13 @@ export function PretifyDate(start, end) {
     var endDate = new Date(end)
 
     const dateOptions = {
-        month: 'long',
-        day: 'numeric',
-        year: 'numeric',
+        month: "long",
+        day: "numeric",
+        year: "numeric",
     };
     const timeOptions = { 
-        hour: 'numeric', 
-        minute: 'numeric' 
+        hour: "numeric", 
+        minute: "numeric" 
     };
 
 

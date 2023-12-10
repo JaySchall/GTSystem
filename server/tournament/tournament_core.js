@@ -147,13 +147,13 @@ class Tournament {
         let unmappedMatches = [];
         let unmappedScores = [];
         if (newMatch.players !== ""){
-            unmappedPlayers = newMatch.players.split(',');
+            unmappedPlayers = newMatch.players.split(",");
         }
         if (newMatch.next_matches !== ""){
-            unmappedMatches = newMatch.next_matches.split(',');
+            unmappedMatches = newMatch.next_matches.split(",");
         }
         if (newMatch.scores){
-            unmappedScores = newMatch.scores.split(',')
+            unmappedScores = newMatch.scores.split(",")
         }
 
         newGame.players = unmappedPlayers.map(Number);
@@ -170,13 +170,13 @@ class Tournament {
         let matches_string = "";
         let scores_string = "";
         if (m.players) {
-            player_string = m.players.join(',');
+            player_string = m.players.join(",");
         }
         if (m.nextMatches) {
-            matches_string = m.nextMatches.join(',')
+            matches_string = m.nextMatches.join(",")
         }
         if (m.scores) {
-            scores_string = m.scores.join(',')
+            scores_string = m.scores.join(",")
         }
         return{ 
             id:idx,

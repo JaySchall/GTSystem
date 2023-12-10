@@ -1,6 +1,6 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUpRightFromSquare} from "@fortawesome/free-solid-svg-icons";
-import { BracketStatus, BracketStyle } from '../../utils/EventMethods';
+import { BracketStatus, BracketStyle } from "../../utils/EventMethods";
 
 export default function BracketPreview(BracketInfo){
     let status = BracketStatus(BracketInfo);

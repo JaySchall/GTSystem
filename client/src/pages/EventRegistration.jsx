@@ -1,8 +1,8 @@
 import EventRegistrationForm from "../components/forms/Participants";
 import React, { useState, useEffect } from "react";
-import { useParams } from 'react-router-dom';
-import RegistrantItem from '../components/Registrant';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useParams } from "react-router-dom";
+import RegistrantItem from "../components/Registrant";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRefresh } from "@fortawesome/free-solid-svg-icons";
 
 import "../css/Registration.css"
@@ -15,14 +15,14 @@ export default function EventRegistration(){
         try {
           const response = await fetch(`/api/registrants/${id}`);
           if (!response.ok) {
-            throw new Error('Failed to fetch event details');
+            throw new Error("Failed to fetch event details");
           }
     
           const data = await response.json();
           setRegisteredPlayers(data);
           console.log(registeredPlayers);
         } catch (error) {
-          console.error('Error fetching event details:', error.message);
+          console.error("Error fetching event details:", error.message);
         }
       };
 
@@ -32,10 +32,10 @@ export default function EventRegistration(){
 
     const handleDrop = async (user_id) => {
         try {
-            const response = await fetch('/api/update-event-registration', {
-              method: 'POST',
+            const response = await fetch("/api/update-event-registration", {
+              method: "POST",
               headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
               },
               body: JSON.stringify({
                 id: user_id,
@@ -45,23 +45,23 @@ export default function EventRegistration(){
             });
       
             if (!response.ok) {
-              throw new Error('Failed to drop player');
+              throw new Error("Failed to drop player");
             }
       
             await response.json();
             const updatedPlayers = registeredPlayers.filter(item=>item.id !== user_id)
             setRegisteredPlayers(updatedPlayers);
         } catch (error) {
-            console.error('Error dropping player:', error.message);
+            console.error("Error dropping player:", error.message);
         }
     }
 
     const handleCheckin = async (user_id, current_ci) => {
         try {
-            const response = await fetch('/api/update-event-registration', {
-              method: 'POST',
+            const response = await fetch("/api/update-event-registration", {
+              method: "POST",
               headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
               },
               body: JSON.stringify({
                 id: user_id,
@@ -72,7 +72,7 @@ export default function EventRegistration(){
             });
       
             if (!response.ok) {
-              throw new Error('Failed to drop player');
+              throw new Error("Failed to drop player");
             }
       
             const returned = await response.json();
@@ -81,7 +81,7 @@ export default function EventRegistration(){
             )
             setRegisteredPlayers(updatedPlayers);
         } catch (error) {
-            console.error('Error dropping player:', error.message);
+            console.error("Error dropping player:", error.message);
         }
     }
 

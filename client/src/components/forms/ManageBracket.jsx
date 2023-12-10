@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 const ManageBracketForm = (props) => {
   const { id, bid=null } = useParams();
   const { form_type, onSubmit } = props;
   const [formData, setFormData] = useState({
-    name: '',
-    style: '',
-    total_stations: '0',
-    players_per_station: '0',
-    rounds: '0',
-    players_move_on: '0',
+    name: "",
+    style: "",
+    total_stations: "0",
+    players_per_station: "0",
+    rounds: "0",
+    players_move_on: "0",
     third_place_match: false,
     seeded: false,
     published: false,
@@ -23,17 +23,17 @@ const ManageBracketForm = (props) => {
       try {
         const response = await fetch(`/api/bracket/${bid}`);
         if (!response.ok) {
-          throw new Error('Failed to fetch bracket details');
+          throw new Error("Failed to fetch bracket details");
         }
 
         const data = await response.json();
         setFormData({...data});
       } catch (error) {
-        console.error('Error fetching bracket details:', error.message);
+        console.error("Error fetching bracket details:", error.message);
       }
     };
 
-    if (form_type === 'edit' && bid) {
+    if (form_type === "edit" && bid) {
       fetchData();
     }
   }, [form_type, bid]);
@@ -42,7 +42,7 @@ const ManageBracketForm = (props) => {
     const { name, value, type, checked } = e.target;
     setFormData({
       ...formData,
-      [name]: type === 'checkbox' ? checked : value,
+      [name]: type === "checkbox" ? checked : value,
     });
   };
 

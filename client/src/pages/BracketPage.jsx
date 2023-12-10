@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import BracketInfo from "../components/bracket/BracketInfo";
 
 import "../css/BracketPage.css"
-import AdminButtons from '../components/Admin';
+import AdminButtons from "../components/Admin";
 
 export default function BracketPage(){
     const { id, bid } = useParams();
@@ -16,13 +16,13 @@ export default function BracketPage(){
           try {
             const response = await fetch(`/api/bracket/${bid}`);
             if (!response.ok) {
-              throw new Error('Failed to fetch bracket details');
+              throw new Error("Failed to fetch bracket details");
             }
     
             const data = await response.json();
             setBracketDetails(data);
           } catch (error) {
-            console.error('Error fetching bracket details:', error.message);
+            console.error("Error fetching bracket details:", error.message);
           }
         };
     
@@ -34,13 +34,13 @@ export default function BracketPage(){
         try {
           const response = await fetch(`/api/matches/${bid}`);
           if (!response.ok) {
-            throw new Error('Failed to fetch match details');
+            throw new Error("Failed to fetch match details");
           }
   
           const data = await response.json();
           setBracketMatches(data);
         } catch (error) {
-          console.error('Error fetching match details:', error.message);
+          console.error("Error fetching match details:", error.message);
         }
       };
   
@@ -52,13 +52,13 @@ export default function BracketPage(){
     try {
       const response = await fetch(`/api/participants/${id}/${bid}`);
       if (!response.ok) {
-        throw new Error('Failed to fetch participant details');
+        throw new Error("Failed to fetch participant details");
       }
 
       const data = await response.json();
       setParticipantDetails(data);
     } catch (error) {
-      console.error('Error fetching participant details:', error.message);
+      console.error("Error fetching participant details:", error.message);
     }
   };
 
@@ -68,10 +68,10 @@ export default function BracketPage(){
 
   const generateBracket = async () => {
     try {
-        const response = await fetch('/api/generate-bracket', {
-          method: 'POST',
+        const response = await fetch("/api/generate-bracket", {
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({
             bracket_id: bid,
@@ -79,22 +79,22 @@ export default function BracketPage(){
         });
   
         if (!response.ok) {
-          throw new Error('Failed to generate bracket');
+          throw new Error("Failed to generate bracket");
         }
   
         await response.json();
         handleMatchDetails();
     } catch (error) {
-        console.error('Error generating bracket:', error.message);
+        console.error("Error generating bracket:", error.message);
     }
   }
 
   const deleteMatchDetails = async () => {
     try {
-      const response = await fetch('/api/delete-matches', {
-        method: 'POST',
+      const response = await fetch("/api/delete-matches", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           bracket_id: bid,
@@ -102,13 +102,13 @@ export default function BracketPage(){
       });
 
       if (!response.ok) {
-        throw new Error('Failed to delete matches');
+        throw new Error("Failed to delete matches");
       }
 
       await response.json();
       handleMatchDetails();
     } catch (error) {
-        console.error('Error deleting matches:', error.message);
+        console.error("Error deleting matches:", error.message);
     }
   }
 
@@ -131,7 +131,7 @@ export default function BracketPage(){
           <button className="button" onClick={handleGenerateBracket}>Generate Bracket</button>
           <button className="button" onClick={handleMatchDelete}>Delete Matches</button>
 
-          <div id="bracket" style={{ minHeight: 520 + 'px' }}>
+          <div id="bracket" style={{ minHeight: 520 + "px" }}>
               {BracketInfo(bracketDetails, participantDetails)}
               <div id="bracket-view">
                   

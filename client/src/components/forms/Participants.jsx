@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef, useCallback  } from 'react';
-import { useParams } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useState, useEffect, useRef, useCallback  } from "react";
+import { useParams } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
-import _ from 'lodash';
+import _ from "lodash";
 
 import "../../css/ManageBracket.css";
 
@@ -10,12 +10,12 @@ import "../../css/ManageBracket.css";
 const EventRegistrationForm = (props) => {
     const { addNewPlayer } = props;
     const { id } = useParams();
-    const [partialUsername, setPartialUsername] = useState('');
-    const [massPlayers, setMassPlayers] = useState('');
+    const [partialUsername, setPartialUsername] = useState("");
+    const [massPlayers, setMassPlayers] = useState("");
     const [suggestions, setSuggestions] = useState([]);
     const [selectedUser, setSelectedUser] = useState(null);  
     const [showSuggestions, setShowSuggestions] = useState(false); 
-    const latestValueRef = useRef('');
+    const latestValueRef = useRef("");
     const inputRef = useRef(null); 
   
 
@@ -23,7 +23,7 @@ const EventRegistrationForm = (props) => {
         _.debounce(async () => {
           const value = latestValueRef.current;
     
-          if (value.trim() !== '') {
+          if (value.trim() !== "") {
             const response = await fetch(`/api/usernames?partialUsername=${value}`);
             const suggestions = await response.json();
     
@@ -56,10 +56,10 @@ const EventRegistrationForm = (props) => {
 
     const playerApiQuery = async (player) => {
         try {
-            const response = await fetch('/api/register-player', {
-              method: 'POST',
+            const response = await fetch("/api/register-player", {
+              method: "POST",
               headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
               },
               body: JSON.stringify({
                 user: player,
@@ -68,13 +68,13 @@ const EventRegistrationForm = (props) => {
             });
       
             if (!response.ok) {
-              throw new Error('Failed to register player');
+              throw new Error("Failed to register player");
             }
       
             const returned = await response.json();
             addNewPlayer(returned)
          } catch (error) {
-            console.error('Error registering player:', error.message);
+            console.error("Error registering player:", error.message);
         }
     }
 
@@ -94,10 +94,10 @@ const EventRegistrationForm = (props) => {
     const importPlayers = (e) => {
         e.preventDefault();
 
-        const lines = massPlayers.split('\n');
+        const lines = massPlayers.split("\n");
 
         const objectList = lines.map((line) => {
-          const items = line.split(',');
+          const items = line.split(",");
           if (items.length === 1) {
             return { name: items[0].trim() };
           }
@@ -123,10 +123,10 @@ const EventRegistrationForm = (props) => {
     };
 
     useEffect(() => {
-        document.addEventListener('click', handleClickOutside);
+        document.addEventListener("click", handleClickOutside);
     
         return () => {
-          document.removeEventListener('click', handleClickOutside);
+          document.removeEventListener("click", handleClickOutside);
         };
     }, []);
 
@@ -155,7 +155,7 @@ const EventRegistrationForm = (props) => {
                                 className="suggestion-item"
                                 onClick={(event) => handleUserSelection(user, event)}
                             >
-                                {user.id + ': ' + user.name}
+                                {user.id + ": " + user.name}
                             </li>
                             ))}
                         </ul>

@@ -1,7 +1,7 @@
-import { useState,useEffect  } from 'react';
-import EventPreview from '../components/EventPreview';
-import GTSlider from '../components/GTSlider';
-import MyDatePicker from '../components/DatePicker';
+import { useState,useEffect  } from "react";
+import EventPreview from "../components/EventPreview";
+import GTSlider from "../components/GTSlider";
+import MyDatePicker from "../components/DatePicker";
 
 import "../css/SlickSlide.css";
 
@@ -15,15 +15,15 @@ export default function Home(){
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await fetch('/api/get-events');
+        const response = await fetch("/api/get-events");
         if (!response.ok) {
-          throw new Error('Failed to fetch events');
+          throw new Error("Failed to fetch events");
         }
 
         const data = await response.json();
         setEvents(data);
       } catch (error) {
-        console.error('Error fetching events:', error.message);
+        console.error("Error fetching events:", error.message);
       }
     };
 
