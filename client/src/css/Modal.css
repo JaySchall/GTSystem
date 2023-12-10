@@ -32,8 +32,9 @@
 
 button {
   margin: 5px;
-  padding: 10px 20px;
+  padding: 5px 15px;
   cursor: pointer;
+  line-height: 1.5;
   border: none;
   transition: background-color 0.2s ease;
 }
