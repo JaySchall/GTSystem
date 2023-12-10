@@ -178,8 +178,15 @@ app.post('/api/check-credentials', async (req, res) => {
       // Compare the provided password with the stored hashed password
       const match = await bcrypt.compare(password, row.hashed_password);
 
+      const userData = {
+        username: row.username,
+        short_name: row.short_name,
+        isAdmin: row.is_admin,
+        is_content_creator: row.is_content_creator
+      }
+
       if (match) {
-        res.status(200).json({ valid: true });
+        res.status(200).json(userData);
       } else {
         res.status(401).json({ valid: false });
       }
