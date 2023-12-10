@@ -15,6 +15,7 @@ import Tags from './pages/Tags';
 import TagEvents from './pages/TagEvents';
 import Footer from "./components/footer/Footer"
 import EventRegistration from "./pages/EventRegistration.js";
+import BracketRegistration from "./pages/BracketRegistration.js";
 
 function App() {
   let component
@@ -71,6 +72,7 @@ function App() {
               <Route path="/create/event" element={<CreateEvent />} />
               <Route path="/events/:id/new-bracket" element={<CreateBracket />} />
               <Route path="/events/:id/bracket/:bid" element={<BracketPage />} />
+              <Route path="/events/:id/bracket/:bid/registration" element={<BracketRegistration />} />
               <Route path="/events/:id/bracket/:bid/edit" element={<ManageBracket />} />
               <Route path="/tags" element={<Tags />} />
               <Route path="/tags/:name" element={<TagEvents />} />

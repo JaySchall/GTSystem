@@ -49,7 +49,10 @@ function getBrackets(id) {
 
 function getParticipants(eventId, bracketId) {
   return new Promise((resolve, reject) => {
-    db.all('SELECT * FROM participants WHERE event_id=? AND bracket_id=?', [eventId, bracketId], (err, playerRows) => {
+    db.all('SELECT participants.player_id, participants.seed, players.name FROM participants ' +
+    'JOIN players ON participants.player_id = players.id WHERE participants.event_id = ? ' +
+    'AND participants.bracket_id = ?',
+    [eventId, bracketId], (err, playerRows) => {
       if (err) {
         reject(err);
       } else {
@@ -61,7 +64,10 @@ function getParticipants(eventId, bracketId) {
 
 function getRegistrants(event_id) {
   return new Promise((resolve, reject) => {
-    db.all('SELECT * FROM registered WHERE event_id=?', [event_id], (err, playerRows) => {
+    db.all('SELECT registered.player_id, players.name, ' +
+    'registered.checked_in FROM Registered JOIN Players ON '+
+    'Registered.player_id = Players.id WHERE Registered.event_id = ?', 
+    [event_id], (err, playerRows) => {
       if (err) {
         reject(err);
       } else {
@@ -663,18 +669,41 @@ app.post('/api/update-event-registration', (req, res) => {
 });
 
 // GET REGISTRANTS AND PARTICIPANTS
-app.get('api/get-participants', async (req, res) => {
-  const { bracket_id, event_id } = req.body;
+app.get('/api/get-participants/:event_id/:bracket_id', async (req, res) => {
+  const { bracket_id, event_id } = req.params;
   let data = {};
   try {
     data.participants = await getParticipants(event_id, bracket_id);
     data.registered = await getRegistrants(event_id);
-    res.status(200).json({ data })
+    res.status(200).json({ ...data })
   } catch (err) {
     console.error('Error getting participants:', err);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
+// UPDATE PARTICIPANTS
+app.post("/api/set-participants", (req, res) => {
+  const { event_id, bracket_id, players } = req.body;
+  db.run('DELETE FROM participants WHERE bracket_id=?', [bracket_id], (err) => {
+    if (err) {
+      console.error('Error setting participants:', err);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+  for(let i = 0; i < players.length; i+=1) {
+    db.run('INSERT INTO participants (player_id, event_id, bracket_id, seed, ' +
+    'disqualified) VALUES (?, ?, ?, ?, ?)', [players[i].id, event_id, bracket_id,
+    players[i].seed, 0], (err) => {
+      if (err) {
+      console.error('Error setting participants:', err);
+      res.status(500).json({ error: 'Internal Server Error' });
+      }
+    });
+  }
+  res.status(200).json({message:'succesfully updated participants'});
+});
+
 
 /***********************************************
  * ⊦───────────── Miscellaneous ─────────────˧
