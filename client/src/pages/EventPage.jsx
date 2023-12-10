@@ -46,37 +46,53 @@ function PropsHelper(index) {
 function h2Helper(title) {
   return <h2 className="no-margin">{title}</h2>;
 }
+export default function EventPage(){
+  const { id } = useParams();
+  const [eventDetails, setEventDetails] = useState({});
+  const [bracketDetails, setBracketDetails] = useState([]);
+  const [value, setValue] = React.useState(0);
 
-export default function EventPage() {
-    const { id } = useParams();
-    const [eventDetails, setEventDetails] = useState({});
-    useEffect(() => {
-        // Fetch event details based on the id parameter
-        const fetchEventDetails = async () => {
-          try {
-            const response = await fetch(`http://localhost:8080/api/event/${id}`);
-            if (!response.ok) {
-              console.log(response);
-              throw new Error("Failed to fetch event details");
-            }
-    
-            const data = await response.json();
-            setEventDetails(data);
-          } catch (error) {
-            console.error("Error fetching event details:", error.message);
+  useEffect(() => {
+      const fetchEventDetails = async () => {
+        try {
+          const response = await fetch(`http://localhost:8080/api/event/${id}`);
+          if (!response.ok) {
+            console.log(response)
+            throw new Error('Failed to fetch event details');
           }
-        };
-    
-        fetchEventDetails();
-    }, [id]); // Re-fetch when the id parameter changes
-    
-    const [value, setValue] = React.useState(0);
+  
+          const data = await response.json();
+          setEventDetails(data);
+        } catch (error) {
+          console.error('Error fetching event details:', error.message);
+        }
+      };
+  
+      fetchEventDetails();
+  }, [id]);
 
-    const handleChange = (event, newValue) => {
-      setValue(newValue);
+  useEffect(() => {
+    const fetchBrackets = async () => {
+      try {
+        const response = await fetch(`/api/event/${id}/bracket`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch events');
+        }
+
+        const data = await response.json();
+        setBracketDetails(data);
+      } catch (error) {
+        console.error('Error fetching events:', error.message);
+      }
     };
 
+    fetchBrackets();
+  }, [id]);
+  
 
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
     return (
       <article>
         <AdminButtons option="event" />
