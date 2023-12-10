@@ -1,5 +1,4 @@
-import LoginForm from "../components/forms/LoginForm.js"
-import { useState,useEffect  } from 'react';
+import LoginForm from "../components/forms/LoginForm.jsx"
 
 export default function Login(){
     return (

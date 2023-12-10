@@ -1,4 +1,4 @@
-import CreateBracketForm from "../components/forms/CreateEvent.js"
+import CreateBracketForm from "../components/forms/CreateEvent.jsx"
 
 export default function CreateBracket(){
     return (
