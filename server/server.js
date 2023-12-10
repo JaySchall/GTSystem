@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const sqlite3 = require('sqlite3').verbose();
-
+const bcrypt = require('bcryptjs');
 const { Tournament, SingleEliminationBracket, Match } = require('./tournament/tournament_core.js');
 
 const app = express();
@@ -1189,17 +1189,22 @@ app.get('/api/get-events', (req, res) => {
 });
 
 
-// check if a username and password is valid
-app.post('/api/check-credentials', (req, res) => {
+// check if a username and password are valid
+app.post('/api/check-credentials', async (req, res) => {
   const { username, password } = req.body;
 
-
-  db.get('SELECT * FROM users WHERE username = ? AND hashed_password = ?', [username, password], (err, row) => {
-   
+  db.get('SELECT * FROM users WHERE username = ?', [username], async (err, row) => {
     if (err) {
       res.status(500).json({ success: false, message: 'Error checking credentials' });
     } else if (row) {
-      res.status(200).json({ valid: true });
+      // Compare the provided password with the stored hashed password
+      const match = await bcrypt.compare(password, row.hashed_password);
+
+      if (match) {
+        res.status(200).json({ valid: true });
+      } else {
+        res.status(401).json({ valid: false });
+      }
     } else {
       res.status(401).json({ valid: false });
     }
@@ -1207,8 +1212,9 @@ app.post('/api/check-credentials', (req, res) => {
 });
 
 // inserting newly registered player
-app.post('/api/register', (req, res) => {
+app.post('/api/register', async (req, res) => {
   const { username, password } = req.body;
+  const hashpass = await bcrypt.hash(password, 8);
 
    db.get('SELECT * FROM users WHERE username = ?', [username], (err, row) => {
     if (err) {
@@ -1217,7 +1223,7 @@ app.post('/api/register', (req, res) => {
       res.status(409).json({ success: false, message: 'Username already exists' });
     } else {
       // Insert the new user into the database
-      db.run('INSERT INTO users (username, hashed_password) VALUES (?, ?)', [username, password], (err) => {
+      db.run('INSERT INTO users (username, hashed_password) VALUES (?, ?)', [username, hashpass], (err) => {
         if (err) {
           res.status(500).json({ success: false, message: 'Error registering user' });
         } else {

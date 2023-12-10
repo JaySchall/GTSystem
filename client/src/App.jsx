@@ -17,6 +17,7 @@ import TagEvents from './pages/TagEvents';
 import Footer from "./components/footer/Footer"
 import EventRegistration from "./pages/EventRegistration";
 import BracketRegistration from "./pages/BracketRegistration";
+import AuthProvider from "./components/AuthContext.jsx";
 
 function App() {
   let component

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useAuth } from '../AuthContext';
 
 const LoginForm = () => {
+  const { login }= useAuth();
   const [regUsername, setRegUsername] = useState('');
   const [regPassword, setRegPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');

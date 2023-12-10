@@ -56,8 +56,9 @@ export default function EventPage(){
     useEffect(() => {
         const fetchEventDetails = async () => {
           try {
-            const response = await fetch(`/api/event/${id}`);
+            const response = await fetch(`http://localhost:8080/api/event/${id}`);
             if (!response.ok) {
+              console.log(response)
               throw new Error('Failed to fetch event details');
             }
     
