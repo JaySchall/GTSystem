@@ -7,16 +7,16 @@ import About from "./pages/About";
 import Events from "./pages/Events";
 import FAQ from "./pages/FAQ";
 import EventPage from "./pages/EventPage";
-import { CreateEvent, EditEvent } from "./pages/ManageEvents.js";
-import BracketPage from "./pages/BracketPage.js"
-import CreateBracket from "./pages/CreateBracket.js";
-import ManageBracket from "./pages/ManageBracket.js"
+import { CreateEvent, EditEvent } from "./pages/ManageEvents";
+import BracketPage from "./pages/BracketPage"
+import CreateBracket from "./pages/CreateBracket";
+import ManageBracket from "./pages/ManageBracket"
 import Tags from './pages/Tags';
 import Login from './pages/Login'
 import TagEvents from './pages/TagEvents';
 import Footer from "./components/footer/Footer"
-import EventRegistration from "./pages/EventRegistration.js";
-import BracketRegistration from "./pages/BracketRegistration.js";
+import EventRegistration from "./pages/EventRegistration";
+import BracketRegistration from "./pages/BracketRegistration";
 
 function App() {
   let component

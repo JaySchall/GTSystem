@@ -1,7 +1,7 @@
-import EventRegistrationForm from "../components/forms/Participants.js";
+import EventRegistrationForm from "../components/forms/Participants";
 import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
-import RegistrantItem from '../components/Registrant.js';
+import RegistrantItem from '../components/Registrant';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRefresh } from "@fortawesome/free-solid-svg-icons";
 

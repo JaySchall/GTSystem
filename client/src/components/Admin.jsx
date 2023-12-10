@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import ConfirmModal from "./Modal.js"
+import ConfirmModal from "./Modal.jsx"
 
 import '../css/Admin.css'
 

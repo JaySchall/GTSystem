@@ -1,4 +1,4 @@
-import ManageBracketForm from "../components/forms/ManageBracket.js";
+import ManageBracketForm from "../components/forms/ManageBracket";
 import { useNavigate } from 'react-router-dom';
 
 

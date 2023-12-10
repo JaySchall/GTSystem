@@ -9,8 +9,8 @@ import Tab from '@mui/material/Tab';
 import { ImageChooser } from '../utils/EventMethods';
 import { PretifyDate } from '../utils/EventMethods';
 
-import BracketPreview from '../components/bracket/BracketPreview.js'
-import AdminButtons from '../components/Admin.js'
+import BracketPreview from '../components/bracket/BracketPreview'
+import AdminButtons from '../components/Admin'
 import '../css/EventsPage.css';
 import '../css/EventsPreview.css'
 

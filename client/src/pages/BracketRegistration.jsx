@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
-import { ParticipantPlayer, RegisteredPlayer } from '../components/ParticipantItems.js';
+import { ParticipantPlayer, RegisteredPlayer } from '../components/ParticipantItems';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRefresh, faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
 

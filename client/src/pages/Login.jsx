@@ -1,4 +1,4 @@
-import LoginForm from "../components/forms/LoginForm.js"
+import LoginForm from "../components/forms/LoginForm"
 import { useState,useEffect  } from 'react';
 
 export default function Login(){
