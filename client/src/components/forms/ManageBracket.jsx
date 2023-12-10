@@ -1,32 +1,54 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
-const ManageBracketForm = () => {
+const ManageBracketForm = (props) => {
+  const { id, bid=null } = useParams();
+  const { form_type, onSubmit } = props;
   const [formData, setFormData] = useState({
-    bracketName: '',
-    bracketStyle: '',
-    numberOfStations: '',
-    playersPerStation: '',
-    numberOfRounds: '',
-    thirdPlaceMatch: false,
+    name: "",
+    style: "",
+    total_stations: "0",
+    players_per_station: "0",
+    rounds: "0",
+    players_move_on: "0",
+    third_place_match: false,
     seeded: false,
     published: false,
-    bracketStart: false,
-    bracketComplete: false,
-    newPlayer: '',
-    playerList: '',
+    started: false,
+    completed: false,
   });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`/api/bracket/${bid}`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch bracket details");
+        }
+
+        const data = await response.json();
+        setFormData({...data});
+      } catch (error) {
+        console.error("Error fetching bracket details:", error.message);
+      }
+    };
+
+    if (form_type === "edit" && bid) {
+      fetchData();
+    }
+  }, [form_type, bid]);
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData({
       ...formData,
-      [name]: type === 'checkbox' ? checked : value,
+      [name]: type === "checkbox" ? checked : value,
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData); // Logging form data
+    onSubmit(formData, id, bid);
   };
 
   return (
@@ -37,8 +59,8 @@ const ManageBracketForm = () => {
           <strong>Bracket Name:</strong>
           <input
             type="text"
-            name="bracketName"
-            value={formData.bracketName}
+            name="name"
+            value={formData.name}
             onChange={handleInputChange}
           />
         </label>
@@ -48,11 +70,11 @@ const ManageBracketForm = () => {
         <label>
           <strong>Bracket Style:</strong>
           <select
-            name="bracketStyle"
-            value={formData.bracketStyle}
+            name="style"
+            value={formData.style}
             onChange={handleInputChange}
           >
-            <option value="">Select Style</option>
+            <option value="" disabled>Select Style</option>
             <option value="singleElimination">Single Elimination</option>
             <option value="doubleElimination">Double Elimination</option>
             <option value="roundRobin">Round Robin</option>
@@ -65,8 +87,8 @@ const ManageBracketForm = () => {
           <strong>Number of Stations:</strong>
           <input
             type="number"
-            name="numberOfStations"
-            value={formData.numberOfStations}
+            name="total_stations"
+            value={formData.total_stations}
             onChange={handleInputChange}
           />
        </label>
@@ -77,8 +99,20 @@ const ManageBracketForm = () => {
           <strong>Players Per Station:</strong>
           <input
             type="number"
-            name="playersPerStation"
-            value={formData.playersPerStation}
+            name="players_per_station"
+            value={formData.players_per_station}
+            onChange={handleInputChange}
+          />
+       </label>
+      </div>
+
+      <div>
+        <label>
+          <strong>Players Move On:</strong>
+          <input
+            type="number"
+            name="players_move_on"
+            value={formData.players_move_on}
             onChange={handleInputChange}
           />
        </label>
@@ -89,8 +123,8 @@ const ManageBracketForm = () => {
           <strong>Numbers of Rounds:</strong>
           <input
             type="number"
-            name="numberOfRounds"
-            value={formData.numberOfRounds}
+            name="rounds"
+            value={formData.rounds}
             onChange={handleInputChange}
           />
        </label>
@@ -98,8 +132,8 @@ const ManageBracketForm = () => {
         <label>
           <input
             type="checkbox"
-            name="thirdPlaceMatch"
-            checked={formData.thirdPlaceMatch}
+            name="third_place_match"
+            checked={formData.third_place_match}
             onChange={handleInputChange}
           />
           <strong>Third Place Match</strong>
@@ -128,54 +162,26 @@ const ManageBracketForm = () => {
         <label>
           <input
             type="checkbox"
-            name="bracketStart"
-            checked={formData.bracketStart}
+            name="started"
+            checked={formData.started}
             onChange={handleInputChange}
           />
-          <strong>Bracket Start</strong>
+          <strong>Start Bracket</strong>
         </label>
 
         <label>
           <input
             type="checkbox"
-            name="bracketComplete"
-            checked={formData.bracketComplete}
+            name="completed"
+            checked={formData.completed}
             onChange={handleInputChange}
           />
-          <strong>Bracket Complete</strong>
+          <strong>Mark As Done</strong>
         </label>
 
         <div>
-          <label>
-          <br/>
-            <strong>Register a New Player:</strong>
-            <input
-              type="text"
-              name="newPlayer"
-              value={formData.newPlayer}
-              onChange={handleInputChange}
-            />
-          </label>
-          <button type="submit">Register</button>
-          <br/>
-        </div>
-
-        <div>
-          <label>
-          <br/>
-            <strong>List of Players:</strong>
-            <textarea
-              name="playerList"
-              rows={15} cols={40}
-              value={formData.playerList}
-              onChange={handleInputChange}
-            />
-          </label>
-        </div>
-
-        <div>
-          <button type="submit">Save</button>
-          <button type="submit">Cancel</button>
+          <button className="button" type="submit">Save</button>
+          <button className="button" type="submit">Cancel</button>
         </div>
       </form>
       <br/>

@@ -9,7 +9,10 @@ import Tab from "@mui/material/Tab";
 import { ImageChooser } from "../utils/EventMethods";
 import { PretifyDate } from "../utils/EventMethods";
 
+import BracketPreview from "../components/bracket/BracketPreview"
+import AdminButtons from "../components/Admin"
 import "../css/EventsPage.css";
+import "../css/EventsPreview.css"
 
 function EventTabs(props) {
   const { children, value, index, ...other } = props;
@@ -45,85 +48,78 @@ function h2Helper(title) {
 }
 
 export default function EventPage() {
-  const { id } = useParams();
-  const [eventDetails, setEventDetails] = useState({});
-  useEffect(() => {
-    // Fetch event details based on the id parameter
-    const fetchEventDetails = async () => {
-      try {
-        const response = await fetch(`/api/event/${id}`);
-        if (!response.ok) {
-          console.log(response);
-          throw new Error("Failed to fetch event details");
-        }
+    const { id } = useParams();
+    const [eventDetails, setEventDetails] = useState({});
+    useEffect(() => {
+        // Fetch event details based on the id parameter
+        const fetchEventDetails = async () => {
+          try {
+            const response = await fetch(`http://localhost:8080/api/event/${id}`);
+            if (!response.ok) {
+              console.log(response);
+              throw new Error("Failed to fetch event details");
+            }
+    
+            const data = await response.json();
+            setEventDetails(data);
+          } catch (error) {
+            console.error("Error fetching event details:", error.message);
+          }
+        };
+    
+        fetchEventDetails();
+    }, [id]); // Re-fetch when the id parameter changes
+    
+    const [value, setValue] = React.useState(0);
 
-        const data = await response.json();
-        setEventDetails(data);
-      } catch (error) {
-        console.error("Error fetching event details:", error.message);
-      }
+    const handleChange = (event, newValue) => {
+      setValue(newValue);
     };
 
-    fetchEventDetails();
-  }, [id]); // Re-fetch when the id parameter changes
 
-  const [value, setValue] = React.useState(0);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
-  return (
-    <article>
-      <div id="record" style={{ minHeight: 520 + "px" }}>
-        <div id="record-info" className="node-body">
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            aria-label="Gaming event tabs"
-          >
-            <Tab label="Event" {...PropsHelper(0)} />
-            <Tab label="Brackets" {...PropsHelper(1)} />
-          </Tabs>
-          <EventTabs value={value} index={0}>
-            <h1 className="no-margin">{eventDetails.name}</h1>
-            {h2Helper("When")}
-            <p>{PretifyDate(eventDetails.startTime, eventDetails.endTime)}</p>
-            {h2Helper("Where")}
-            <p>{eventDetails.location}</p>
-            {h2Helper("Description")}
-            <p />
-            <p
-              dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(eventDetails.description),
-              }}
-            />
-            <p />
-          </EventTabs>
-          <EventTabs value={value} index={1}></EventTabs>
-        </div>
-        <div id="record-image-metadata">
-          <div>
-            <img
-              src={ImageChooser(eventDetails.game)}
-              alt="Graphic for events post"
-            />
-            <p>{eventDetails.game} Tournament</p>
+    return (
+      <article>
+        <AdminButtons option="event" />
+        <div id="record" style={{ minHeight: 520 + "px" }}>
+          <div id="record-info" className="node-body">
+            <Tabs value={value} 
+              onChange={handleChange} 
+              aria-label="Gaming event tabs"
+              >
+              <Tab label="Event" {...PropsHelper(0)} />
+              <Tab label="Brackets" {...PropsHelper(1)} />
+            </Tabs>
+            <EventTabs value={value} index={0}>
+                <h1 className="no-margin">{ eventDetails.name }</h1>
+                { h2Helper("When") }
+                <p>{PretifyDate(eventDetails.startTime, eventDetails.endTime)}</p>
+                { h2Helper("Where") }
+                <p>{ eventDetails.location }</p>
+                { h2Helper("Description") }
+                <p/>
+                <p dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(eventDetails.description) }} />
+                <p/>
+            </EventTabs>
+            <EventTabs className="bracket-list" value={value} index={1}>
+                <ul>
+                  {bracketDetails.map((brackets) => (
+                      brackets.published ? (BracketPreview(brackets)) : (null)
+                  ))}
+                </ul>
+            </EventTabs>
           </div>
-          <p>
-            <b>Tags</b>
-            {eventDetails.tags &&
-              eventDetails.tags.split(",").map((tag, index) => (
-                <React.Fragment key={index}>
-                  <br />
-                  <a
-                    href={`/tags/${encodeURIComponent(
-                      tag.replace(/\s+/g, "-")
-                    )}`}
-                  >
-                    {tag}
-                  </a>
-                </React.Fragment>
+          <div id="record-image-metadata">
+            <div>
+              <img src={ ImageChooser(eventDetails.game) } alt="Graphic for events post"/>
+              <p>{ eventDetails.game } Tournament</p>
+            </div>
+            <p>
+              <b>Tags</b>
+              {eventDetails.tags && eventDetails.tags.split(",").map((tag, index) => (
+              <React.Fragment key={index}>
+                <br />
+                <a href={`/tags/${encodeURIComponent(tag.replace(/\s+/g, "-"))}`}>{tag}</a>
+              </React.Fragment>
               ))}
           </p>
         </div>

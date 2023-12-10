@@ -1,8 +1,8 @@
-import mk8d from '../img/games/mariokart8deluxe.jpg';
-import ssbu from '../img/games/ssbu.jpg';
-import splatoon3 from '../img/games/splatoon3.jpeg';
-import gamecube from '../img/games/gamecube.png';
-import unknownImage from '../img/games/meeting.png';
+import mk8d from "../img/games/mariokart8deluxe.jpg";
+import ssbu from "../img/games/ssbu.jpg";
+import splatoon3 from "../img/games/splatoon3.jpeg";
+import gamecube from "../img/games/gamecube.png";
+import unknownImage from "../img/games/meeting.png";
 
 import "../css/EventsPreview.css"
 
@@ -29,13 +29,13 @@ export function PretifyDate(start, end) {
     var endDate = new Date(end)
 
     const dateOptions = {
-        month: 'long',
-        day: 'numeric',
-        year: 'numeric',
+        month: "long",
+        day: "numeric",
+        year: "numeric",
     };
     const timeOptions = { 
-        hour: 'numeric', 
-        minute: 'numeric' 
+        hour: "numeric", 
+        minute: "numeric" 
     };
 
 
@@ -50,5 +50,24 @@ export function PretifyDate(start, end) {
     } else {
         // Different days
         return `${startDateString}: ${startTimeString} to ${stopDateString}: ${stopTimeString}`;
+    }
+}
+export function BracketStatus(BracketInfo) {
+    if (BracketInfo.complete) {
+        return "Completed";
+    } else if (BracketInfo.started) {
+        return "In Progress";
+    } else {
+        return "Not Started";
+    }
+}
+
+export function BracketStyle(style) {
+    if (style === "singleElimination") {
+        return "Single Elimination";
+    } else if (style === "doubleElimination") {
+        return "Double Elimination";
+    } else if (style === "roundRobin") {
+        return "Round Robin";
     }
 }

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 const whereOptionsList = [
     "265 Parkland Plaza",
@@ -44,21 +44,22 @@ const whereOptionsList = [
     "Westgate Branch: West Side Room"
 ];
 
-const CreateBracketForm = () => {
-  // State variables for form inputs
+const CreateEventForm = (props) => {
   const navigate = useNavigate();
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+  const { form_type, onSubmit } = props;
+  const { id } = useParams();
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
   const [whereOptions, setWhereOptions] = useState(
     whereOptionsList.reduce((options, option) => {
         options[option] = false;
         return options;
     }, {})
   );
-  const [startTime, setStartTime] = useState('');
-  const [endTime, setEndTime] = useState('');
-  const [game, setGame] = useState('');
-  const [tags, setTags] = useState('');
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
+  const [game, setGame] = useState("");
+  const [tags, setTags] = useState("");
 
   // Function to handle form submission
   const handleSubmit = async (e) => {
@@ -67,7 +68,7 @@ const CreateBracketForm = () => {
     var trueLocations = Object.keys(whereOptions).filter(function(key) {
       return whereOptions[key] === true;
     });
-    var locations = trueLocations.join(', ');
+    var locations = trueLocations.join(", ");
     var startDate = new Date(startTime);
     var endDate = new Date(endTime);
 
@@ -79,33 +80,44 @@ const CreateBracketForm = () => {
       description: description, 
       game: game,
       tags: tags.split(",").map(item => item.trim()),
+      ...(id !== undefined && { id: id }),
     }
-
-    try {
-      const response = await fetch('/api/create-event', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(eventForm),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to create event');
-      }
-
-      const responseData = await response.json();
-      console.log(responseData);
-      navigate(`/Events/${responseData.id}`);
-    } catch (error) {
-      console.error('Error creating event:', error.message);
-      // Handle error, show a message, etc.
-    }
-
+    onSubmit(eventForm)
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`/api/event/${id}`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch event details");
+        }
+        const data = await response.json();
+        setDescription(data.description);
+        setEndTime(data.endTime.slice(0, 16));
+        setGame(data.game);
+        setTitle(data.name);
+        setStartTime(data.startTime.slice(0, 16));
+        setTags(data.tags);
+        const temp_loc = data.location.split(", ").map(element => element.trim());
+        setWhereOptions(prevOptions => {
+          const updatedOptions = { ...prevOptions };
+          temp_loc.forEach(element => {
+            updatedOptions[element] = true;
+          });
+          return updatedOptions;
+        });
+      } catch (error) {
+        console.error("Error fetching event details:", error.message);
+      }
+    };
+    if (form_type === "edit" && id) {
+      fetchData();
+    }
+  }, [form_type, id]);
+
   const handleCancel = () =>{
-    navigate(`/`);
+    navigate(`/events/${id}`);
   };
 
   const handleWhereOptionChange = (option) => {
@@ -178,7 +190,7 @@ const CreateBracketForm = () => {
       <label>
         Game:
         <select value={game} onChange={(e) => setGame(e.target.value)}>
-          <option value="" disabled selected>Select a game</option>
+          <option value="" disabled>Select a game</option>
           <option value="Splatoon 3">Splatoon 3</option>
           <option value="Super Smash Bros Ultimate">Super Smash Bros Ultimate</option>
           <option value="Mario Kart 8 Deluxe">Mario Kart 8 Deluxe</option>
@@ -197,11 +209,11 @@ const CreateBracketForm = () => {
       </label>
 
       {/* Submit Button */}
-      <button type="submit">Submit</button>
-      <button type="button" onClick={handleCancel}>Cancel</button>
+      <button className="button" type="submit">Submit</button>
+      <button className="button" type="button" onClick={handleCancel}>Cancel</button>
       <br/>
     </form>
   );
 };
 
-export default CreateBracketForm;
+export default CreateEventForm;
