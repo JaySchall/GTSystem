@@ -1,4 +1,3 @@
-
 class Match {
     constructor(players=[], isBye=false, isThird=false) {
         this.players = players;
@@ -32,9 +31,6 @@ class SingleEliminationBracket {
         let total = participants.length;
         let num_matches = 0;
         let third = null;
-        if (this.third_place_match) { 
-            third = new Match(isThird=true); 
-        }
         do {
             let new_matches = []
             round += 1;
@@ -47,7 +43,7 @@ class SingleEliminationBracket {
                         if (val > this.matches.length-1) { val = Math.floor((val*this.players_move_on)/this.players_per_station); }
                         new_match.nextMatches.push(val)
                     }
-                    if (round === 1 && third) {
+                    if (round === 1 && this.third_place_match) {
                         for (let j = 0; j < this.players_move_on; j++) {
                             new_match.nextMatches.push(-1);
                         }
@@ -73,6 +69,11 @@ class SingleEliminationBracket {
             if(this.matches[bracket_index].players.length <= this.players_move_on) {
                 this.matches[bracket_index].isBye = true;
             }
+        }
+        if (this.third_place_match) { 
+            third = new Match();
+            third.isThird = true; 
+            this.matches.push(third);
         }
     }
 
@@ -127,23 +128,33 @@ class SingleEliminationBracket {
 class Tournament {
     constructor(id, style="singleElimination", participants=[]) {
         this.id = id;
+        this.bracket = null;
         this.style = this.setStyle(style);
         this.participants = participants;
-        this.bracket = null;
     }
 
     setStyle(style) {
         this.style = style;
         if(this.style === "singleElimination") {
-            this.bracket = SingleEliminationBracket();
+            this.bracket = new SingleEliminationBracket();
         }
+        return style;
     }
 
     loadMatch(newMatch) {
         let newGame = new Match();
-        unmappedPlayers = newMatch.players.split(',');
-        unmappedMatches = newMatch.next_matches.split(',');
-        unmappedScores = newMatch.scores.split(',')
+        let unmappedPlayers = [];
+        let unmappedMatches = [];
+        let unmappedScores = [];
+        if (newMatch.players !== ""){
+            unmappedPlayers = newMatch.players.split(',');
+        }
+        if (newMatch.next_matches !== ""){
+            unmappedMatches = newMatch.next_matches.split(',');
+        }
+        if (newMatch.scores){
+            unmappedScores = newMatch.scores.split(',')
+        }
 
         newGame.players = unmappedPlayers.map(Number);
         newGame.nextMatches = unmappedMatches.map(Number);
@@ -155,14 +166,26 @@ class Tournament {
     }
 
     exportMatch(m, idx) {
+        let player_string = "";
+        let matches_string = "";
+        let scores_string = "";
+        if (m.players) {
+            player_string = m.players.join(',');
+        }
+        if (m.nextMatches) {
+            matches_string = m.nextMatches.join(',')
+        }
+        if (m.scores) {
+            scores_string = m.scores.join(',')
+        }
         return{ 
             id:idx,
-            players: m.player.join(','),
-            next_matches: m.nextMatches.join(','),
-            scores: m.scores.join(','),
+            players: player_string,
+            next_matches: matches_string,
+            scores: scores_string,
             is_bye: Number(m.isBye),
             is_started: Number(m.isStarted),
-            is_done: Number(isCompleted),
+            is_done: Number(m.isCompleted),
         }
     }
 
@@ -174,7 +197,10 @@ class Tournament {
     }
 
     generateSeededBracket(){
-        this.bracket.generateBracket(this.participants.map(player => player.player_id));
+        const sortedParticipants = this.participants.sort((a, b) => a.seed - b.seed);
+        const playerIdsOrderedBySeed = sortedParticipants.map(participant => participant.player_id);
+
+        this.bracket.generateBracket(playerIdsOrderedBySeed);
     }
 
     addParticipant(participant){
@@ -182,4 +208,4 @@ class Tournament {
     }
 }
 
-
+module.exports = { Tournament, SingleEliminationBracket, Match };

@@ -11,7 +11,7 @@ export default function BracketInfo(BracketInfo, Participants = []){
           {Participants.length > 0 ? (
             <ol>
               {Participants.map((player) => (
-                <li key={player.id}>{player}</li>
+                <li key={player.player_id}>{player.name}</li>
               ))}
             </ol>
           ) : (

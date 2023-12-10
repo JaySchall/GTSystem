@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const sqlite3 = require('sqlite3').verbose();
 
-const Tournament = require('./tournament/tournament_core.js')
+const { Tournament, SingleEliminationBracket, Match } = require('./tournament/tournament_core.js');
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -98,6 +98,19 @@ function deleteBracket(bid) {
   });
 }
 
+function getMatches(bid) { 
+  return new Promise((resolve, reject) => {
+    db.all('SELECT * FROM matches WHERE bracket_id = ? ORDER BY id', 
+    [bid], (err, matchRows) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(matchRows);
+      }
+    });
+  });
+}
+
 function insertPlayerAndRegister(name, event_id) {
   return new Promise((resolve, reject) => {
     db.run('INSERT INTO players (name) VALUES (?)', [name], function (err) {
@@ -122,8 +135,7 @@ async function loadBracket(bracket_id) {
             if (err) {
               reject(err);
             } else {
-              let loadedBracket = new Tournament(id=BracketId, style=row.style, 
-                participants=rows);
+              const loadedBracket = new Tournament(bracket_id, row.style, rows);
               loadedBracket.bracket.players_per_station = row.players_per_station;
               loadedBracket.bracket.players_move_on = row.players_move_on;
               loadedBracket.bracket.third_place_match = Boolean(row.third_place_match);
@@ -504,39 +516,58 @@ app.post('/api/update-match', (req, res) => {
 app.post('/api/generate-bracket', async (req, res) => {
   const { bracket_id } = req.body;
   try {
+    const matches = await getMatches(bracket_id);
+    if (matches.length !== 0){
+      res.status(200).json({message:"Bracket already exists!"});
+      return;
+    }
     let tournament = await loadBracket(bracket_id)
     if (tournament.bracket.seeded) {
       tournament.generateSeededBracket();
     } else {
       tournament.generateRandomBracket();
     }
-    tournament.bracket.matches.forEach((value, index) => {
+    await tournament.bracket.matches.forEach((value, index) => {
       match_vals = tournament.exportMatch(value, index);
       db.run("INSERT INTO matches (id, bracket_id, players, next_matches, " +
       "scores, is_bye, is_started, is_done) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
       [match_vals.id, bracket_id, match_vals.players, match_vals.next_matches, 
         match_vals.scores, match_vals.is_bye, match_vals.is_started, 
         match_vals.is_done], 
-        function (err) {
-          console.error('Error generating bracket:', err);
-          res.status(500).json({ error: 'Internal Server Error' });
-        });
+        function (err) {});
     });
-    db.all('SELECT * FROM matches WHERE bracket_id = ? ORDER BY id',
-    [bracket_id], (err, rows) => {
-      if (err) {
-        console.error('Error generating bracket:', err);
-        res.status(500).json({ error: 'Internal Server Error' });
-      } else {
-        res.status(200).json(rows)
-      }
-    })
   } catch (err) {
     console.error('Error generating bracket:', err);
     res.status(500).json({ error: 'Internal Server Error' });
   }
-
+  res.status(200).json({message:"Successfully generated bracket."});
 });
+
+// GET MATCHES
+app.get('/api/matches/:bid', async (req, res) => {
+  const { bid } = req.params;
+  try {
+    const matches = await getMatches(bid);
+    res.status(200).json(matches);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({error:"Failed to retrieve matches"});
+  }
+});
+
+// DELETE MATCHES
+app.post('/api/delete-matches', (req, res) => {
+    const { bid } = req.body;
+    db.run('DELETE FROM matches WHERE bracket_id = ?', [bid], function (err) {
+      if (err) {
+        res.status(500).json({ error: err.message });
+        return;
+      }
+  
+      res.json({ message: `Deleted all matches for bracket_id ${bid}` });  
+    })
+})
+
 
 /***********************************************
  * ⊦───────────────── Tags ─────────────────˧
@@ -636,6 +667,18 @@ app.get('/api/registrants/:id', (req, res) => {
       })));
     }
   });
+});
+
+// GET ALL PARTICIPANTS FOR A BRACKET
+app.get('/api/participants/:id/:bid', async (req, res) => {
+  const { id, bid } = req.params;
+  try {
+    const participants_list = await getParticipants(id, bid);
+    res.status(200).json(participants_list);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({error: "Internal Server Error"})
+  }
 });
 
 // CHECKIN AND DROP REGISTRANT

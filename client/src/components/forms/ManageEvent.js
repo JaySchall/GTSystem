@@ -117,7 +117,7 @@ const CreateEventForm = (props) => {
   }, [form_type, id]);
 
   const handleCancel = () =>{
-    navigate(`/`);
+    navigate(`/events/${id}`);
   };
 
   const handleWhereOptionChange = (option) => {
