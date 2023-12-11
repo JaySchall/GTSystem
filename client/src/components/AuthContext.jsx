@@ -23,6 +23,7 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     setUser(null);
     localStorage.removeItem("user");
+    navigate(0);
     navigate("/");
   };
 
