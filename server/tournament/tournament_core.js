@@ -53,13 +53,13 @@ class SingleEliminationBracket {
                     new_matches.push(new_match);
                 }
             }
-            while (new_matches.length > 0) {this.matches.push(new_matches.shift());}
+            while (new_matches.length > 0) {this.matches.push(new_matches.pop());}
         }while(total > num_matches*this.players_per_station);
         let seed_locations = this.seeding(round);
         let num_first_matches = seed_locations.length/this.players_per_station
         for(let match = 0; match < num_first_matches; match += 1) {
             let seed_index = match*this.players_per_station;
-            let bracket_index = this.matches.length-num_first_matches+match;
+            let bracket_index = this.matches.length-1-match;
             let seeds_to_play = seed_locations.slice(seed_index, seed_index+this.players_per_station);
             seeds_to_play.forEach((value) => {
                 if (value-1 < participants.length) {

@@ -157,7 +157,7 @@ return (
               />
             ))
           ) : (
-            <span>No players checked-in yet</span>
+            <span>No new players checked-in yet</span>
           )}
         </div>
         <div id="participant-players">

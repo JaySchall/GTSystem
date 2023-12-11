@@ -78,6 +78,19 @@ function getRegistrants(event_id) {
   });
 }
 
+function getPlayers(id, bid) {
+  return new Promise((resolve, reject) => {
+    db.get("SELECT players FROM matches WHERE id = ? AND bracket_id = ?", 
+    [id, bid], (err, players) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(players);
+      }
+    });
+  });
+}
+
 function deleteBracket(bid) {
   return new Promise((resolve, reject) => {
     db.run("DELETE FROM matches WHERE bracket_id=?", [bid], (err) => {
@@ -274,6 +287,31 @@ app.post("/api/delete-bracket", async (req, res) => {
     })
 });
 
+// START BRACKET
+app.post("/api/start-bracket", (req, res) => {
+  const { bid } = req.body;
+  db.run("UPDATE brackets SET started=1 WHERE id = ?", 
+  [bid], function (err) {
+    if (err) {
+      console.log(`Error starting bracket ${bid}: ` + err);
+      res.status(500).json({ error: err.message });
+    }
+    res.json({ message: `Marked bracket ${bid} as started.` });  
+  })
+});
+
+// END BRACKET
+app.post("/api/end-bracket", (req, res) => {
+  const { bid } = req.body;
+  db.run("UPDATE brackets SET completed=1 WHERE id = ?", 
+  [bid], function (err) {
+    if (err) {
+      console.log(`Error ending bracket ${bid}: ` + err);
+      res.status(500).json({ error: err.message });
+    }
+    res.json({ message: `Marked bracket ${bid} as finished.` });  
+  })
+});
 
 /***********************************************
  * ⊦──────────────── Events ────────────────˧
@@ -580,6 +618,67 @@ app.post("/api/delete-matches", (req, res) => {
     })
 })
 
+// ADD PLAYER TO MATCH
+app.post("/api/match-add-player", async (req, res) => {
+  const { match_id, bid, player_id } = req.body;
+  try{
+    let new_players = await getPlayers(match_id, bid);
+    if (new_players.players !== "") {
+      new_players = new_players.players + "," + player_id;
+    } else {
+      new_players = "" + player_id;
+    }
+    db.run("UPDATE matches SET players = ? WHERE bracket_id = ? AND id = ?", 
+    [new_players, bid, match_id], function (err) {
+      res.json({ message: `Added player to match ${match_id} in bracket ${bid}.` });  
+    })
+  } catch (err) {
+    console.log("Error adding player: " + err);
+    res.status(500).json({ error: err.message });
+  }
+})
+
+// UPDATE SCORES IN MATCH
+app.post("/api/match-score", (req, res) => {
+  const { match_id, bid, score } = req.body;
+  db.run("UPDATE matches SET scores = ? WHERE bracket_id = ? AND id = ?", 
+  [score, bid, match_id], function (err) {
+    if (err) {
+      console.log("Error setting scores: " + err);
+      res.status(500).json({ error: err.message });
+    }
+
+    res.json({ message: `Set score for match ${match_id} in bracket ${bid}.` });  
+  })
+})
+
+// MARK MATCH AS DONE
+app.post("/api/match-done", (req, res) => {
+  const { match_id, bid } = req.body;
+  db.run("UPDATE matches SET is_done=1 WHERE bracket_id = ? AND id = ?", 
+  [bid, match_id], function (err) {
+    if (err) {
+      console.log("Error setting match as done: " + err);
+      res.status(500).json({ error: err.message });
+    }
+
+    res.json({ message: `Marked match ${match_id} in bracket ${bid} as complete.` });  
+  })
+})
+
+// START A MATCH
+app.post("/api/match-start", (req, res) => {
+  const { match_id, bid } = req.body;
+  db.run("UPDATE matches SET is_started=1 WHERE bracket_id = ? AND id = ?", 
+  [bid, match_id], function (err) {
+    if (err) {
+      console.log("Error setting match as started: " + err);
+      res.status(500).json({ error: err.message });
+    }
+
+    res.json({ message: `Marked match ${match_id} in bracket ${bid} as started.` });  
+  })
+})
 
 /***********************************************
  * ⊦───────────────── Tags ─────────────────˧
