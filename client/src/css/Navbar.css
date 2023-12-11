@@ -18,7 +18,7 @@ header nav {
 #aadl-logo-text {
   float: left;
   display: block;
-  margin-right: 7.4229703521%;
+  margin-right: auto;
   width: 100%;
   line-height: 50px;
   height: 50px;
@@ -57,7 +57,7 @@ header nav {
   #aadl-logo-text {
     float: left;
     display: block;
-    width: 48.21067%
+    width: fit-content;
   }
 
   #aadl-logo-text:last-child {
@@ -70,7 +70,7 @@ header nav {
     float: left;
     display: block;
     margin-right: 2.3576515979%;
-    width: 31.275%;
+    width: fit-content;
     font-size: 2.0rem
   }
 
@@ -158,6 +158,11 @@ a #gtsystem-logo-2 {
 
 @media screen and (min-width:1024px) {
   .main-nav-item:nth-child(1) {
-    margin-left: 33.5%
+    margin-left: auto;
   }
+}
+
+.nav-item-group {
+  display: flex !important;
+  justify-content: flex-end;
 }
