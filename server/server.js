@@ -846,9 +846,9 @@ app.post("/api/set-participants", (req, res) => {
     }
   });
   for(let i = 0; i < players.length; i+=1) {
-    db.run("INSERT INTO participants (player_id, event_id, bracket_id, seed, " +
-    "disqualified) VALUES (?, ?, ?, ?, ?)", [players[i].id, event_id, bracket_id,
-    players[i].seed, 0], (err) => {
+    db.run("INSERT INTO participants (player_id, event_id, bracket_id, seed) " +
+    "VALUES (?, ?, ?, ?)", [players[i].id, event_id, bracket_id, players[i].seed],
+    (err) => {
       if (err) {
       console.error("Error setting participants:", err);
       res.status(500).json({ error: "Internal Server Error" });
@@ -1021,7 +1021,6 @@ app.post("/api/check-credentials", async (req, res) => {
 
       const userData = {
         username: row.username,
-        short_name: row.short_name,
         isAdmin: row.is_admin,
         is_content_creator: row.is_content_creator
       }
