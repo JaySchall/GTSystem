@@ -30,25 +30,21 @@ export default function BracketPage() {
     fetchBracketDetails();
   }, [bid]);
 
-  useEffect(() => {
-    const fetchBracketMatches = async () => {
-      try {
-        const response = await fetch(`/api/matches/${bid}`);
-        if (!response.ok) {
-          throw new Error("Failed to fetch match details");
-        }
-
-        const data = await response.json();
-        setBracketMatches(data);
-      } catch (error) {
-        console.error("Error fetching match details:", error.message);
-      }
-    };
-
-    fetchBracketMatches();
-  }, [bid]);
-
   const fetchMatchDetails = async () => {
+    try {
+      const response = await fetch(`/api/matches/${bid}`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch match details");
+      }
+
+      const data = await response.json();
+      setBracketMatches(data);
+    } catch (error) {
+      console.error("Error fetching match details:", error.message);
+    }
+  };
+
+  const fetchParticipantInfo = async () => {
     try {
       const response = await fetch(`/api/participants/${id}/${bid}`);
       if (!response.ok) {
@@ -64,6 +60,10 @@ export default function BracketPage() {
 
   useEffect(() => {
     fetchMatchDetails();
+  }, [bid]);
+
+  useEffect(() => {
+    fetchParticipantInfo();
   }, [bid]);
 
   const generateBracket = async () => {
@@ -129,16 +129,20 @@ export default function BracketPage() {
       {user && user.isAdmin ? (
         <>
           <AdminButtons option="bracket" />
+        </>
+      ) : null}
           <a href={"/events/" + id} className="button">
             {"< Back"}
           </a>
+      {user && user.isAdmin ? (
+        <>
           <button className="button" onClick={handleGenerateBracket}>
             Generate Bracket
           </button>
           <button className="button" onClick={handleMatchDelete}>
             Delete Matches
           </button>
-        </>
+          </>
       ) : null}
       <div id="bracket" style={{ minHeight: 520 + "px" }}>
         {BracketInfo(bracketDetails, participantDetails)}

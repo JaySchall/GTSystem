@@ -11,15 +11,16 @@ import { CreateEvent, EditEvent } from "./pages/ManageEvents";
 import BracketPage from "./pages/BracketPage";
 import CreateBracket from "./pages/CreateBracket";
 import ManageBracket from "./pages/ManageBracket";
+import BracketManager from "./pages/BracketManager";
 import Tags from "./pages/Tags";
 import Login from "./pages/Login";
 import TagEvents from "./pages/TagEvents";
 import Footer from "./components/footer/Footer";
 import EventRegistration from "./pages/EventRegistration";
 import BracketRegistration from "./pages/BracketRegistration";
-import AuthProvider from "./components/AuthContext.jsx";
-import ProtectedLoginRoute from "./components/ProtectedLoginRoute.jsx";
-import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import AuthProvider from "./components/AuthContext";
+import ProtectedLoginRoute from "./components/ProtectedLoginRoute";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   const [data, setData] = React.useState(null);
@@ -99,6 +100,14 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <ManageBracket />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/events/:id/bracket/:bid/manage"
+                element={
+                  <ProtectedRoute>
+                    <BracketManager />
                   </ProtectedRoute>
                 }
               />

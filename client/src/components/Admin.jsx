@@ -14,7 +14,7 @@ export default function AdminButtons(props) {
 
   const options = {
     event: [0, 1, 2, 3, 6],
-    bracket: [5, 4, 3, 7],
+    bracket: [5, 4, 8, 3, 7],
   };
 
   const handleDeleteClick = () => {
@@ -100,6 +100,7 @@ export default function AdminButtons(props) {
         item="bracket"
       />
     ),
+    8: <a href={"/events/" + id + "/bracket/" + bid + "/manage"}>Manage</a>,
   };
 
   return (
