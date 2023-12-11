@@ -40,7 +40,7 @@ export default function MyDatePicker() {
   
     return (
       <div style={{ position: 'relative' }}>
-        <div id="events-calendar"></div>
+        
         {showTooltip && (
           <div id='event-listing'>
             <h3>Events on {selectedDate}</h3>
@@ -51,6 +51,7 @@ export default function MyDatePicker() {
             <button onClick={() => setShowTooltip(false)}>Close</button>
           </div>
         )}
+        <div id="events-calendar"></div>
       </div>
     );
   }
