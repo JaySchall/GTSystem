@@ -1,11 +1,13 @@
 import Navbar from "./Navbar";
-import UserLinks from "./UserLinks"
+import UserLinks from "./UserLinks";
 
-export default function Header(){
-    return(
-        <header className="l-overflow-clear no-margin" role="banner">
-            <UserLinks/>
-            <Navbar/>
-        </header>
-    )
+export default function Header() {
+  return (
+    <>
+      <UserLinks />
+      <header className="l-overflow-clear no-margin" role="banner">
+        <Navbar />
+      </header>
+    </>
+  );
 }
