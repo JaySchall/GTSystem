@@ -3,9 +3,9 @@ import Slider from "react-slick";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
-import BLM from '../img/carousel/BLM_carousel.png';
+import SAHS from '../img/carousel/AADL_GT-Round 3_Carousel.png';
 import Seed from '../img/carousel/Seed_Sampler_Carousel.png';
-import Tiny from '../img/carousel/TinyExpo_Carousel.png';
+import Pokemon from '../img/carousel/220616-A2SF_PokemonGaming_Carousel.jpg';
 import Wapur from '../img/carousel/WAPUR2023_Carousel.jpg';
 
 const PrevArrow = ({ currentSlide, slideCount, ...props }) => (
@@ -49,17 +49,17 @@ export default class GTSlider extends Component {
 
     return (
       <Slider className="image-slider" {...settings} >
-        <a href="https://aadl.org/blacklivesmatter">
-        <img src={BLM} alt="BLM" />
+        <a href="https://aadl.org/node/574083">
+        <img src={SAHS} alt="Stay-at-Home-Smash-3" />
         </a>
 
-        <a href="https://aadl.org/node/621838">
-        <img src={Seed} alt="Seed" />
+        <a href="https://aadl.org/node/600070">
+        <img src={Pokemon} alt="PokemonTop" />
         </a>
         <a href="https://aadl.org/seedsampler">
-        <img src={Tiny} alt="Tiny" />
+        <img src={Seed} alt="Seed" />
         </a>
-        <a href="https://aadl.org/tinyexpo">
+        <a href="https://aadl.org/node/621838">
         <img src={Wapur} alt="Wapur" />
         </a>
       </Slider>
