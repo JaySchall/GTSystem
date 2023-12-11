@@ -932,6 +932,16 @@ a.ui-button:active,
 #events-calendar .ui-datepicker {
     border: none
 }
+#event-listing {
+    width: 100%;
+    height: 470px;
+    background-color: #06c;
+    padding: 10px;
+    border: '1px solid #ccc';
+    z-index: 99;
+    display: block;
+    overflow: scroll;
+}
 
 .ui-datepicker {
     width: 100%;
