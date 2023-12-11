@@ -4,9 +4,10 @@ import { useAuth } from "../components/AuthContext";
 const ProtectedRoute = ({ children }) => {
   const { user } = useAuth();
 
-  if (!user) {
-    // User not logged in, redirect to login page
-    return <Navigate to="/user/login" />;
+  console.log("You must be an admin to access the page.");
+
+  if (!user || user.isAdmin !== 1) {
+    return <Navigate to="/" />;
   }
 
   return children;
