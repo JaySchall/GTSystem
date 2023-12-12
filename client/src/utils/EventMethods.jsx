@@ -53,10 +53,12 @@ export function PretifyDate(start, end) {
     }
 }
 export function BracketStatus(BracketInfo) {
-    if (BracketInfo.complete) {
+    if (BracketInfo.completed) {
         return "Completed";
     } else if (BracketInfo.started) {
         return "In Progress";
+    } else  if (!BracketInfo.published){
+        return "Unpublished";
     } else {
         return "Not Started";
     }

@@ -8,6 +8,7 @@ import Tab from "@mui/material/Tab";
 
 import { ImageChooser } from "../utils/EventMethods";
 import { PretifyDate } from "../utils/EventMethods";
+import { useAuth } from "../components/AuthContext";
 
 import BracketPreview from "../components/bracket/BracketPreview"
 import AdminButtons from "../components/Admin"
@@ -48,6 +49,7 @@ function h2Helper(title) {
 }
 export default function EventPage(){
   const { id } = useParams();
+  const { user } = useAuth();
   const [eventDetails, setEventDetails] = useState({});
   const [bracketDetails, setBracketDetails] = useState([]);
   const [value, setValue] = React.useState(0);
@@ -119,7 +121,7 @@ export default function EventPage(){
             <EventTabs className="bracket-list" value={value} index={1}>
                 <ul>
                   {bracketDetails.map((brackets) => (
-                      brackets.published ? (BracketPreview(brackets)) : (null)
+                      brackets.published || (user && user.isAdmin) ? (BracketPreview(brackets)) : (null)
                   ))}
                 </ul>
             </EventTabs>

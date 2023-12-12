@@ -20,15 +20,15 @@ a.button {
   display: inline-block;
   cursor: pointer;
   border: none;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.1s ease;
 }
 
-.button {
+.button:hover {
 background-color: #342f42;
 color: #fff;
 }
 
-.button {
+.button:active {
 background-color: #1f1c29;
 color: #fff;
 }
@@ -38,6 +38,12 @@ font-family: "Montserrat", sans-serif;
 font-size: 1em;
 color: #000;
 background-color: var(--yellow);
+transition: background-color 0.1s ease;
+}
+
+input[type="submit"] {
+  border: 0;
+  padding: 5px 15px;
 }
 
 @media screen and (min-width:1024px) {
@@ -1209,12 +1215,6 @@ h1:after {
 
 .about-services-events>div ul {
   padding: 15px 20px
-}
-
-@media screen and (min-width:768px) {
-  .about-services-events>div ul {
-    height: 470px
-  }
 }
 
 .about-us li,
