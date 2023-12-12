@@ -1,6 +1,5 @@
 import { Component } from "react";
 import Slider from "react-slick";
-import { SliderHelper } from "../utils/Slide";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
