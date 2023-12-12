@@ -3,6 +3,7 @@ const cors = require("cors");
 const sqlite3 = require("sqlite3").verbose();
 const bcrypt = require("bcryptjs");
 const { Tournament, SingleEliminationBracket, Match } = require("./tournament/tournament_core.js");
+const { parse, format, addDays, parseISO } = require('date-fns');
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -388,6 +389,31 @@ app.post("/api/create-event", (req, res) => {
     }
   );
 });
+
+// GETTER FOR CALENDAR
+
+app.get('/api/calendar/:month/:day/:year', (req, res) => {
+  const { month, day, year } = req.params;
+  const selectedDate = parse(`${month}/${day}/${year}`, 'MM/dd/yyyy', new Date()); // Parse the selected date
+  selectedDate.setHours(0,0,0,0);
+  const endDate = addDays(selectedDate, 1);
+  const query = `
+    SELECT *
+    FROM events
+    WHERE startTime >= ? AND startTime < ?
+    ORDER BY startTime;
+  `;
+
+  db.all(query, [selectedDate.toISOString(), endDate.toISOString()], (err, rows) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Internal Server Error');
+    } else {
+      res.json(rows);
+    }
+  });
+});
+
 
 // GETTER FOR EVENT PAGE
 app.get("/api/event/:id", (req, res) => {
