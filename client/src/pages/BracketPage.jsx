@@ -179,6 +179,7 @@ export default function BracketPage() {
 
   const visualizeBracket = async () => {
     if (bracketMatches.length && Object.keys(bracketDetails).length) {
+      console.log("visualization run");
       const temp_data = MatchManagerUtil(
         bracketMatches,
         bracketDetails.third_place_match
@@ -194,7 +195,7 @@ export default function BracketPage() {
 
   useEffect(() => {
     visualizeBracket();
-  }, [bracketMatches]);
+  }, [bracketMatches, bracketDetails]);
 
   return (
     <article>
