@@ -21,7 +21,6 @@
   grid-template-columns: repeat(2, 1fr);
   flex-direction: row;
   justify-content: space-between;
-  width: 100%;
   text-wrap: nowrap;
   padding: 0px 5px;
 }
