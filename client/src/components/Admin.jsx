@@ -14,7 +14,7 @@ export default function AdminButtons(props) {
 
   const options = {
     event: [0, 1, 2, 3, 6],
-    bracket: [5, 4, 3, 7],
+    bracket: [5, 4, 8, 3, 7],
   };
 
   const handleDeleteClick = () => {
@@ -70,22 +70,23 @@ export default function AdminButtons(props) {
   };
 
   const buttons = {
-    0: <a href={"/events/" + id + "/edit"}>Edit</a>,
-    1: <a href={"/events/" + id + "/registration"}>Registration</a>,
-    2: <a href={"/events/" + id + "/new-bracket"}>Create Bracket</a>,
+    0: <a key={0} href={"/events/" + id + "/edit"}>Edit</a>,
+    1: <a key={1} href={"/events/" + id + "/registration"}>Registration</a>,
+    2: <a key={2} href={"/events/" + id + "/new-bracket"}>Create Bracket</a>,
     3: (
-      <a id="delete" href="#" onClick={handleDeleteClick}>
+      <a key={3} id="delete" href="#" onClick={handleDeleteClick}>
         Delete
       </a>
     ),
     4: (
-      <a href={"/events/" + id + "/bracket/" + bid + "/registration"}>
+      <a key={4} href={"/events/" + id + "/bracket/" + bid + "/registration"}>
         Registration
       </a>
     ),
-    5: <a href={"/events/" + id + "/bracket/" + bid + "/edit"}>Edit</a>,
+    5: <a key={5} href={"/events/" + id + "/bracket/" + bid + "/edit"}>Edit</a>,
     6: (
       <ConfirmModal
+        key={6}
         isOpen={isModalOpen}
         onCancel={handleCancelDelete}
         onConfirm={handleConfirmEventDelete}
@@ -94,12 +95,14 @@ export default function AdminButtons(props) {
     ),
     7: (
       <ConfirmModal
+        key={7}
         isOpen={isModalOpen}
         onCancel={handleCancelDelete}
         onConfirm={handleConfirmBracketDelete}
         item="bracket"
       />
     ),
+    8: <a key={8} href={"/events/" + id + "/bracket/" + bid + "/manage"}>Manage</a>,
   };
 
   return (

@@ -79,7 +79,7 @@ const CreateEventForm = (props) => {
       endTime: endDate.toISOString(), 
       description: description, 
       game: game,
-      tags: tags.split(",").map(item => item.trim()),
+      tags: tags ? tags.split(",").map(item => item.trim()) : [],
       ...(id !== undefined && { id: id }),
     }
     onSubmit(eventForm)
