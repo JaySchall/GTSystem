@@ -20,6 +20,17 @@ export default function BracketPage() {
   const [bracketMatches, setBracketMatches] = useState([]);
   const [bracketRounds, setBracketRounds] = useState([]);
   const [bracketFinals, setBracketFinals] = useState([]);
+  const dummyMatchDetails = {            
+    name: "dummy match",
+    name_id: "",
+    id: -1,
+    players: [],
+    next_matches: [],
+    scores: [],
+    is_bye: false,
+    is_started: false,
+    is_done: false,
+  };
 
   const fetchBracketDetails = async () => {
     try {
@@ -250,6 +261,13 @@ export default function BracketPage() {
               <div className="round-column">
                 <div className="round-column-title">Grand Finals</div>
                 <div className="round-column-content">
+                  {bracketFinals.length > 1 ? (
+                    <MatchVisual className="invis" 
+                      matchDetails={dummyMatchDetails}
+                      playerDetails={participantDetails}
+                      bracketInfo={bracketDetails}
+                    />
+                  ) : (null)}
                   {bracketFinals
                     .slice()
                     .reverse()

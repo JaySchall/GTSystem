@@ -17,9 +17,9 @@ export function getRounds(matches, bracket_details) {
   return rounds;
 }
 
-export function MatchVisual({ matchDetails, playerDetails, bracketInfo }) {
+export function MatchVisual({ matchDetails, playerDetails, bracketInfo, className }) {
   return (
-    <div className="match-visual">
+    <div className={"match-visual " + (className || "")}>
       <span>{matchDetails.name_id}</span>
       <div className={"players"}>
         {Array.from({ length: bracketInfo.players_per_station }, (_, index) => (

@@ -30,26 +30,6 @@
     justify-content: space-around;
 }
 
-.round-column:last-child {
-    margin-right: 0;
-}
-
-.round-column:last-child .match-visual {
-    width: 100%;
-    display: flex;
-    flex-shrink: 0;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    color: var(--purple);
-}
-
-.round-column:last-child .match-visual:last-child {
-    display: flex;
-    flex: 0 0 auto;
-    height:min-content;
-}
-
 .round-column span {
     display: flex;
     justify-content: center;
@@ -67,6 +47,21 @@
     align-items: center;
     margin: 10px 0;
     color: var(--purple);
+}
+
+.match-visual.invis {
+    color: transparent;
+    background-color: transparent;
+}
+
+.invis .players {
+    color: transparent;
+    background-color: transparent;
+}
+
+.invis .player-data {
+    color: transparent;
+    background-color: transparent;
 }
 
 .players {
