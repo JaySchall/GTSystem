@@ -57,6 +57,8 @@ export function BracketStatus(BracketInfo) {
         return "Completed";
     } else if (BracketInfo.started) {
         return "In Progress";
+    } else  if (!BracketInfo.published){
+        return "Unpublished";
     } else {
         return "Not Started";
     }

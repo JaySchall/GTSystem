@@ -198,96 +198,102 @@ export default function BracketPage() {
   }, [bracketMatches, bracketDetails]);
 
   return (
-    <article>
-      {user && user.isAdmin ? (
-        <>
-          <AdminButtons option="bracket" />
-        </>
-      ) : null}
-      <a href={"/events/" + id} className="button">
-        {"< Back"}
-      </a>
-      {user && user.isAdmin ? (
-        <>
-          {!bracketDetails.started ? (
+    <>
+      {bracketDetails.published || (user && user.isAdmin) ? (
+        <article>
+          {user && user.isAdmin ? (
             <>
-              <button className="button" onClick={handleGenerateBracket}>
-                Generate Bracket
-              </button>
-              {bracketMatches.length > 0 ? (
-                <button
-                  className="button"
-                  onClick={handleBracketStartMatchManage}
-                >
-                  Start Bracket
+              <AdminButtons option="bracket" />
+            </>
+          ) : null}
+          <a href={"/events/" + id} className="button">
+            {"< Back"}
+          </a>
+          {user && user.isAdmin ? (
+            <>
+              {!bracketDetails.started ? (
+                <>
+                  <button className="button" onClick={handleGenerateBracket}>
+                    Generate Bracket
+                  </button>
+                  {bracketMatches.length > 0 ? (
+                    <button
+                      className="button"
+                      onClick={handleBracketStartMatchManage}
+                    >
+                      Start Bracket
+                    </button>
+                  ) : null}
+                  <button className="button" onClick={handleMatchDelete}>
+                    Delete Matches
+                  </button>
+                </>
+              ) : null}
+              {bracketDetails.started && !bracketDetails.completed ? (
+                <button className="button" onClick={handleEndBracket}>
+                  End Bracket
                 </button>
               ) : null}
-              <button className="button" onClick={handleMatchDelete}>
-                Delete Matches
-              </button>
             </>
           ) : null}
-          {bracketDetails.started && !bracketDetails.completed ? (
-            <button className="button" onClick={handleEndBracket}>
-              End Bracket
-            </button>
-          ) : null}
-        </>
-      ) : null}
-      <div id="bracket" style={{ minHeight: 520 + "px" }}>
-        {BracketInfo(bracketDetails, participantDetails)}
-        <div id="bracket-view">
-          {bracketDetails.started ||
-          (bracketFinals.length > 0 && user && user.isAdmin) ? (
-            <>
-              {bracketRounds.map((round, index) => (
-                <div key={index} className="round-column">
-                  {index < bracketRounds.length - 1 ? (
-                    <div className="round-column-title">Round {index + 1}</div>
-                  ) : (
-                    <div className="round-column-title">Semi-finals</div>
-                  )}
-                  <div className="round-column-content">
-                    {round.map((match, index) => (
-                      <MatchVisual
-                        key={index}
-                        matchDetails={match}
-                        playerDetails={participantDetails}
-                        bracketInfo={bracketDetails}
-                      />
-                    ))}
+          <div id="bracket" style={{ minHeight: 520 + "px" }}>
+            {BracketInfo(bracketDetails, participantDetails)}
+            <div id="bracket-view">
+              {bracketDetails.started ||
+              (bracketFinals.length > 0 && user && user.isAdmin) ? (
+                <>
+                  {bracketRounds.map((round, index) => (
+                    <div key={index} className="round-column">
+                      {index < bracketRounds.length - 1 ? (
+                        <div className="round-column-title">Round {index + 1}</div>
+                      ) : (
+                        <div className="round-column-title">Semi-finals</div>
+                      )}
+                      <div className="round-column-content">
+                        {round.map((match, index) => (
+                          <MatchVisual
+                            key={index}
+                            matchDetails={match}
+                            playerDetails={participantDetails}
+                            bracketInfo={bracketDetails}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                  <div className="round-column">
+                    <div className="round-column-title">Grand Finals</div>
+                    <div className="round-column-content">
+                      {bracketFinals.length > 1 ? (
+                        <MatchVisual className="invis" 
+                          matchDetails={dummyMatchDetails}
+                          playerDetails={participantDetails}
+                          bracketInfo={bracketDetails}
+                        />
+                      ) : (null)}
+                      {bracketFinals
+                        .slice()
+                        .reverse()
+                        .map((match, index) => (
+                          <MatchVisual
+                            key={index}
+                            matchDetails={match}
+                            playerDetails={participantDetails}
+                            bracketInfo={bracketDetails}
+                          />
+                        ))}
+                    </div>
                   </div>
-                </div>
-              ))}
-              <div className="round-column">
-                <div className="round-column-title">Grand Finals</div>
-                <div className="round-column-content">
-                  {bracketFinals.length > 1 ? (
-                    <MatchVisual className="invis" 
-                      matchDetails={dummyMatchDetails}
-                      playerDetails={participantDetails}
-                      bracketInfo={bracketDetails}
-                    />
-                  ) : (null)}
-                  {bracketFinals
-                    .slice()
-                    .reverse()
-                    .map((match, index) => (
-                      <MatchVisual
-                        key={index}
-                        matchDetails={match}
-                        playerDetails={participantDetails}
-                        bracketInfo={bracketDetails}
-                      />
-                    ))}
-                </div>
-              </div>
-            </>
-          ) : (
-            <div className="unavailable">Bracket has not been started yet</div>
-          )}
-        </div>
-      </div>
-    </article>
+                </>
+              ) : (
+                <div className="unavailable">Bracket has not been started yet</div>
+              )}
+            </div>
+          </div>
+        </article>
+      ) : (
+        <span>This bracket hasn't been published yet, check back later.</span>
+      )}
+    </>
   );
 }

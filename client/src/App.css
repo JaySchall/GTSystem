@@ -1217,12 +1217,6 @@ h1:after {
   padding: 15px 20px
 }
 
-@media screen and (min-width:768px) {
-  .about-services-events>div ul {
-    height: 470px
-  }
-}
-
 .about-us li,
 .about-us a {
   color: #fff
