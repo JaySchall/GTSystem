@@ -61,6 +61,13 @@ const CreateEventForm = (props) => {
   const [game, setGame] = useState("");
   const [tags, setTags] = useState("");
 
+  function convertAndSetLocalTime(isoString) {
+    const gmtDate = new Date(isoString);
+    const offsetMinutes = gmtDate.getTimezoneOffset();
+    const localDate = new Date(gmtDate.getTime() - (offsetMinutes * 60 * 1000));
+    return localDate.toISOString().slice(0, -8);
+}
+
   // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -94,10 +101,10 @@ const CreateEventForm = (props) => {
         }
         const data = await response.json();
         setDescription(data.description);
-        setEndTime(data.endTime.slice(0, 16));
+        setEndTime(convertAndSetLocalTime(data.endTime));
         setGame(data.game);
         setTitle(data.name);
-        setStartTime(data.startTime.slice(0, 16));
+        setStartTime(convertAndSetLocalTime(data.startTime));
         setTags(data.tags);
         const temp_loc = data.location.split(", ").map(element => element.trim());
         setWhereOptions(prevOptions => {
@@ -117,7 +124,7 @@ const CreateEventForm = (props) => {
   }, [form_type, id]);
 
   const handleCancel = () =>{
-    navigate(`/events/${id}`);
+    navigate(`/`);
   };
 
   const handleWhereOptionChange = (option) => {
